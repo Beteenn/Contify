@@ -1,0 +1,32 @@
+{
+  "name": "modulo02",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "dev:debug": "nodemon --inspect src/server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "date-fns": "^2.14.0",
+    "express": "^4.17.1",
+    "init": "^0.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.0.2",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.6",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.4",
+    "sequelize-cli": "^5.5.1",
+    "sucrase": "^3.13.0"
+  }
+}
