@@ -71,17 +71,22 @@ class MovimentController {
       is_earning: Yup.boolean(),
     });
 
-    if (req.userId !== Moviment.user_id) {
-      return res
-        .status(401)
-        .json({ error: "You don't have permission for this moviment" });
-    }
-
     if (!(await schema.isValid())) {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const moviment = await Moviment.findByPk(req.params.id);
+    const moviment = await Moviment.findByPk(req.params.id, {
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'valor',
+        'expires',
+        'is_earning',
+        'user_id',
+        'picture_id',
+      ],
+    });
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
