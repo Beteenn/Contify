@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "crypto": "^1.0.1",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "init": "^0.1.2",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
     "pg": "^8.0.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.6",
