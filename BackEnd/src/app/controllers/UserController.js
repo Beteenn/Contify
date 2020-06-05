@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import Result from '../models/Result';
 
 class UserController {
   async list(req, res) {
@@ -40,6 +41,8 @@ class UserController {
     }
 
     const { id, name } = await User.create(req.body);
+
+    await Result.create({ user_id: id });
 
     return res.json({ id, name, email });
   }

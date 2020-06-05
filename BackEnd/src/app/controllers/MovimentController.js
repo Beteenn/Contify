@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Moviment from '../models/Moviment';
+import Result from '../models/Result';
 
 class MovimentController {
   async list(req, res) {
@@ -36,21 +37,40 @@ class MovimentController {
       description: Yup.string(),
       valor: Yup.number().required(),
       expires: Yup.date().required(),
-      user_id: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const {
+    const user_id = req.userId;
+
+    const { id, name, description, valor, expires, is_earning } = req.body;
+
+    await Moviment.create({
       id,
       name,
       description,
       valor,
       expires,
       is_earning,
-    } = await Moviment.create(req.body);
+      user_id,
+    });
+
+    // put the moviment on result
+
+    const result = await Result.findOne({ where: { user_id: req.userId } });
+
+    if (is_earning === true) {
+      result.result += valor;
+    } else {
+      result.result -= valor;
+    }
+
+    result.update();
+    result.save();
+
+    // returning the moviments
 
     return res.json({
       id,
@@ -71,23 +91,49 @@ class MovimentController {
       is_earning: Yup.boolean(),
     });
 
-    if (req.userId !== Moviment.user_id) {
-      return res
-        .status(401)
-        .json({ error: "You don't have permission for this moviment" });
-    }
-
     if (!(await schema.isValid())) {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const moviment = await Moviment.findByPk(req.params.id);
+    const moviment = await Moviment.findByPk(req.params.id, {
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'valor',
+        'expires',
+        'is_earning',
+        'user_id',
+        'picture_id',
+      ],
+    });
+
+    const { is_earning, valor } = req.body;
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
-    await moviment.update(req.body);
+    const result = await Result.findOne({ where: { user_id: req.userId } });
+
+    // put the moviments edit on the result
+
+    if (valor && valor !== moviment.valor) {
+      if (is_earning === true) {
+        result.result -= await moviment.valor;
+        result.result += await valor;
+      } else {
+        result.result += moviment.valor;
+        result.result -= valor;
+      }
+
+      result.update();
+      result.save();
+    } else {
+      await moviment.update(req.body);
+    }
+
+    // returning the moviments
 
     return res.json(moviment);
   }
@@ -95,7 +141,7 @@ class MovimentController {
   async delete(req, res) {
     const moviment = await Moviment.findByPk(req.params.id);
 
-    if (req.userId !== Moviment.user_id) {
+    if ((await req.userId) !== moviment.user_id) {
       return res
         .status(401)
         .json({ error: "You don't have permission for this moviment" });
@@ -104,6 +150,18 @@ class MovimentController {
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
     }
+
+    const result = await Result.findOne({ where: { user_id: req.userId } });
+    console.log(result.user_id);
+
+    if (moviment.is_earning === true) {
+      result.result -= await moviment.valor;
+    } else {
+      result.result += await moviment.valor;
+    }
+
+    result.update();
+    result.save();
 
     await moviment.destroy(req.params.id);
 

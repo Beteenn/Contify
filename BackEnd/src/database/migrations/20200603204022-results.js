@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moviments', {
+    return queryInterface.createTable('results', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -14,26 +14,10 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      valor: {
+      result: {
         type: Sequelize.DOUBLE,
         allowNull: false,
-      },
-      expires: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-      is_earning: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
+        defaultValue: 0,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -47,6 +31,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('moviments');
+    return queryInterface.dropTable('results');
   },
 };
