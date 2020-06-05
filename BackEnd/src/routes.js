@@ -17,18 +17,22 @@ routes.post('/sessions', SessionController.store);
 
 routes.post('/users', UserController.store);
 
+routes.use(authMiddleware);
+
 // Rotas que necessitam de login
 routes.use(authMiddleware);
 
 // Rotas User
+
 routes.get('/users', UserController.list);
-routes.get('/user/:id', UserController.index);
+routes.get('/users/:id', UserController.index);
 routes.put('/users/:id', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 
 // Rotas Moviment
 routes.get('/moviments', MovimentController.list);
 routes.get('/moviments/:id', MovimentController.index);
+routes.post('/moviments', MovimentController.store);
 routes.put('/moviments/:id', MovimentController.update);
 routes.delete('/moviments/:id', MovimentController.delete);
 

@@ -5,8 +5,9 @@ import Moviment from '../app/models/Moviment';
 import MovimentFile from '../app/models/MovimentFile';
 
 import databaseConfig from '../config/database';
+import Result from '../app/models/Result';
 
-const models = [User, Moviment, MovimentFile];
+const models = [User, Moviment, MovimentFile, Result];
 
 class Database {
   constructor() {
