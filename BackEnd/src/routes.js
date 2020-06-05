@@ -12,12 +12,12 @@ routes.post('/sessions', SessionController.store);
 
 routes.post('/users', UserController.store);
 
-routes.post('/moviments', MovimentController.store);
-
 routes.use(authMiddleware);
 
+routes.post('/moviments', MovimentController.store);
+
 routes.get('/users', UserController.list);
-routes.get('/user/:id', UserController.index);
+routes.get('/users/:id', UserController.index);
 routes.put('/users/:id', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 
