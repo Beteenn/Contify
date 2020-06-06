@@ -3,11 +3,12 @@ import Sequelize from 'sequelize';
 import User from '../app/models/User';
 import Moviment from '../app/models/Moviment';
 import MovimentFile from '../app/models/MovimentFile';
+import Avatar from '../app/models/Avatar';
 
 import databaseConfig from '../config/database';
 import Result from '../app/models/Result';
 
-const models = [User, Moviment, MovimentFile, Result];
+const models = [User, Moviment, MovimentFile, Result, Avatar];
 
 class Database {
   constructor() {

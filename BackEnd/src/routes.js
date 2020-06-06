@@ -8,6 +8,8 @@ import MovimentController from './app/controllers/MovimentController';
 import MovimentFileController from './app/controllers/MovimentFileController';
 
 import authMiddleware from './app/middlewares/auth';
+import ResultController from './app/controllers/ResultController';
+import AvatarController from './app/controllers/AvatarController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -23,7 +25,6 @@ routes.use(authMiddleware);
 routes.use(authMiddleware);
 
 // Rotas User
-
 routes.get('/users', UserController.list);
 routes.get('/users/:id', UserController.index);
 routes.put('/users/:id', UserController.update);
@@ -42,5 +43,13 @@ routes.post(
   upload.single('movimentFile'),
   MovimentFileController.store
 );
+
+// Rotas avatar
+routes.post('/avatar', upload.single('file'), AvatarController.store);
+routes.put('/avatar', upload.single('file'), AvatarController.update);
+routes.delete('/avatar', upload.single('file'), AvatarController.delete);
+
+// Rota result
+routes.get('/result', ResultController.index);
 
 export default routes;

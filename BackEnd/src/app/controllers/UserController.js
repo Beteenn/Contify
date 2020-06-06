@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 import Result from '../models/Result';
+import Avatar from '../models/Avatar';
 
 class UserController {
   async list(req, res) {
@@ -110,7 +111,15 @@ class UserController {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    await user.destroy(req.params.id);
+    // if user has a avatar, delete the avatar from table "avatars"
+
+    if ((await user.avatar_id) !== null) {
+      const avatar = Avatar.findByPk(user.avatar_id);
+      (await avatar).destroy();
+    }
+    //
+
+    await user.destroy();
 
     return res.json({ ok: `The user ${user.name} was deleted` });
   }
