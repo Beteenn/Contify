@@ -6,7 +6,7 @@ class Moviment extends Model {
       {
         name: Sequelize.STRING,
         description: Sequelize.STRING,
-        valor: Sequelize.NUMBER,
+        valor: Sequelize.DOUBLE,
         expires: Sequelize.DATE,
         is_earning: Sequelize.BOOLEAN,
       },

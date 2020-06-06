@@ -67,7 +67,7 @@ class UserController {
     }
 
     const user = await User.findByPk(req.params.id, {
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'password_hash'],
     });
 
     if (!user) {
@@ -84,8 +84,14 @@ class UserController {
       }
     }
 
-    if (oldPassword && (await !user.checkPassword(oldPassword))) {
-      return res.status(400).json({ error: 'Password does not met' });
+    console.log(`Senha hash ${user.password_hash}`);
+    console.log(`Senha antiga ${oldPassword}`);
+    console.log(`Senha nova ${password}`);
+
+    if (oldPassword) {
+      if (!(await user.checkPassword(oldPassword))) {
+        return res.status(401).json({ error: 'Password does not met' });
+      }
     }
 
     if (password && password === oldPassword) {

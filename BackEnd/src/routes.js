@@ -30,7 +30,8 @@ routes.put('/users/:id', UserController.update);
 routes.delete('/users/:id', UserController.delete);
 
 // Rotas Moviment
-routes.get('/moviments', MovimentController.list);
+routes.get('/moviments/', MovimentController.list);
+routes.get('/moviments/', MovimentController.typeList);
 routes.get('/moviments/:id', MovimentController.index);
 routes.post('/moviments', MovimentController.store);
 routes.put('/moviments/:id', MovimentController.update);
@@ -42,5 +43,6 @@ routes.post(
   upload.single('movimentFile'),
   MovimentFileController.store
 );
+routes.delete('/moviment-files/:id', MovimentFileController.delete);
 
 export default routes;
