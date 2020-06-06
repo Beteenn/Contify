@@ -1,12 +1,52 @@
 import * as Yup from 'yup';
 import Moviment from '../models/Moviment';
 import Result from '../models/Result';
+import MovimentFile from '../models/MovimentFile';
 
 class MovimentController {
   async list(req, res) {
+    const { page = 1 } = req.query;
+
     const moviment = await Moviment.findAll({
       where: { user_id: req.userId },
-      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
+      order: ['created_at'],
+      limit: 10,
+      offset: (page - 1) * 10,
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'valor',
+        'expires',
+        'is_earning',
+      ],
+    });
+
+    if (!moviment) {
+      return res.status(404).json({
+        error: `The user with id=${req.UserId} does not have any moviment`,
+      });
+    }
+
+    return res.json(moviment);
+  }
+
+  async typeList(req, res) {
+    const { page = 1, type } = req.query;
+
+    const moviment = await Moviment.findAll({
+      where: { user_id: req.userId, is_earning: type },
+      order: ['created_at'],
+      limit: 10,
+      offset: (page - 1) * 10,
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'valor',
+        'expires',
+        'is_earning',
+      ],
     });
 
     if (!moviment) {
@@ -45,10 +85,9 @@ class MovimentController {
 
     const user_id = req.userId;
 
-    const { id, name, description, valor, expires, is_earning } = req.body;
+    const { name, description, valor, expires, is_earning } = req.body;
 
-    await Moviment.create({
-      id,
+    const { id } = await Moviment.create({
       name,
       description,
       valor,
@@ -67,8 +106,13 @@ class MovimentController {
       result.result -= valor;
     }
 
-    result.update();
-    result.save();
+    await result.update();
+    await result.save();
+
+    const resultTotal = await Result.findOne({
+      where: { user_id: req.userId },
+      attributes: ['result'],
+    });
 
     // returning the moviments
 
@@ -79,6 +123,8 @@ class MovimentController {
       valor,
       expires,
       is_earning,
+      user_id,
+      resultTotal,
     });
   }
 
@@ -118,24 +164,41 @@ class MovimentController {
 
     // put the moviments edit on the result
 
-    if (valor && valor !== moviment.valor) {
+    if (
+      (valor && valor !== (await moviment.valor)) ||
+      (is_earning && is_earning !== (await moviment.is_earning))
+    ) {
       if (is_earning === true) {
         result.result -= await moviment.valor;
         result.result += await valor;
       } else {
-        result.result += moviment.valor;
-        result.result -= valor;
+        result.result += await moviment.valor;
+        result.result -= await valor;
       }
 
-      result.update();
-      result.save();
-    } else {
-      await moviment.update(req.body);
+      await result.update();
+      await result.save();
     }
+
+    await moviment.update(req.body);
+    const { id, name, description, expires, user_id } = await moviment.save();
+
+    const resultTotal = await Result.findOne({
+      where: { user_id: req.userId },
+      attributes: ['result'],
+    });
 
     // returning the moviments
 
-    return res.json(moviment);
+    return res.json({
+      id,
+      name,
+      description,
+      expires,
+      is_earning,
+      user_id,
+      resultTotal,
+    });
   }
 
   async delete(req, res) {
@@ -152,7 +215,6 @@ class MovimentController {
     }
 
     const result = await Result.findOne({ where: { user_id: req.userId } });
-    console.log(result.user_id);
 
     if (moviment.is_earning === true) {
       result.result -= await moviment.valor;
@@ -160,12 +222,20 @@ class MovimentController {
       result.result += await moviment.valor;
     }
 
-    result.update();
-    result.save();
+    await result.update();
+    await result.save();
 
     await moviment.destroy(req.params.id);
 
-    return res.json({ ok: `The moviment ${moviment.name} was deleted` });
+    const picture = await MovimentFile.findByPk(moviment.picture_id);
+
+    if (picture) {
+      await picture.destroy();
+    }
+
+    return res.json({
+      ok: `The moviment ${moviment.name} was deleted, Result: ${result.result}`,
+    });
   }
 }
 
