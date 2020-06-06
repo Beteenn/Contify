@@ -11,6 +11,18 @@ class MovimentFileController {
 
     return res.json(picture);
   }
+
+  async delete(req, res) {
+    const picture = await MovimentFile.findByPk(req.params.id);
+
+    if (!picture) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    await picture.destroy();
+
+    return res.json({ message: 'The file was deleted' });
+  }
 }
 
 export default new MovimentFileController();
