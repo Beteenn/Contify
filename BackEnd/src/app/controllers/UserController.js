@@ -117,6 +117,8 @@ class UserController {
       return res.status(404).json({ error: 'User not found' });
     }
 
+    await user.destroy();
+
     // if user has a avatar, delete the avatar from table "avatars"
 
     if ((await user.avatar_id) !== null) {
@@ -124,8 +126,6 @@ class UserController {
       (await avatar).destroy();
     }
     //
-
-    await user.destroy();
 
     return res.json({ ok: `The user ${user.name} was deleted` });
   }
