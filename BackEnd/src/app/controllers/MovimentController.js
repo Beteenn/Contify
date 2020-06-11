@@ -75,7 +75,7 @@ class MovimentController {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       description: Yup.string(),
-      valor: Yup.number().required(),
+      valor: Yup.number().positive().required(),
       expires: Yup.date().required(),
     });
 
@@ -132,7 +132,7 @@ class MovimentController {
     const schema = Yup.object().shape({
       name: Yup.string(),
       description: Yup.string(),
-      valor: Yup.number(),
+      valor: Yup.number().positive(),
       expires: Yup.date(),
       is_earning: Yup.boolean(),
     });
@@ -154,25 +154,30 @@ class MovimentController {
       ],
     });
 
-    const { is_earning, valor } = req.body;
-
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
+    const user_id = req.userId;
+    const { is_earning, valor } = req.body;
+
     const result = await Result.findOne({ where: { user_id: req.userId } });
 
     // put the moviments edit on the result
-
-    if (
-      (valor && valor !== (await moviment.valor)) ||
-      (is_earning && is_earning !== (await moviment.is_earning))
-    ) {
-      if (is_earning === true) {
-        result.result -= await moviment.valor;
+    if (valor || is_earning) {
+      if (is_earning === (await moviment.is_earning)) {
+        if (is_earning === true) {
+          result.result -= await moviment.valor;
+          result.result += await valor;
+        } else {
+          result.result += await moviment.valor;
+          result.result -= await valor;
+        }
+      } else if (is_earning === true) {
+        result.result += await moviment.valor;
         result.result += await valor;
       } else {
-        result.result += await moviment.valor;
+        result.result -= await moviment.valor;
         result.result -= await valor;
       }
 
@@ -181,7 +186,8 @@ class MovimentController {
     }
 
     await moviment.update(req.body);
-    const { id, name, description, expires, user_id } = await moviment.save();
+
+    const { id, name, description, expires } = await moviment.save();
 
     const resultTotal = await Result.findOne({
       where: { user_id: req.userId },
@@ -195,6 +201,7 @@ class MovimentController {
       name,
       description,
       expires,
+      valor,
       is_earning,
       user_id,
       resultTotal,
@@ -204,14 +211,14 @@ class MovimentController {
   async delete(req, res) {
     const moviment = await Moviment.findByPk(req.params.id);
 
+    if (!moviment) {
+      return res.status(404).json({ error: 'Moviment not found' });
+    }
+
     if ((await req.userId) !== moviment.user_id) {
       return res
         .status(401)
         .json({ error: "You don't have permission for this moviment" });
-    }
-
-    if (!moviment) {
-      return res.status(404).json({ error: 'Moviment not found' });
     }
 
     const result = await Result.findOne({ where: { user_id: req.userId } });
