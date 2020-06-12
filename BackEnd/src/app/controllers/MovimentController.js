@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import Moviment from '../models/Moviment';
 import Result from '../models/Result';
-import MovimentFile from '../models/MovimentFile';
+import Picture from '../models/Picture';
 
 class MovimentController {
   async list(req, res) {
@@ -234,7 +234,7 @@ class MovimentController {
 
     await moviment.destroy(req.params.id);
 
-    const picture = await MovimentFile.findByPk(moviment.picture_id);
+    const picture = await Picture.findByPk(moviment.picture_id);
 
     if (picture) {
       await picture.destroy();

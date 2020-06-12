@@ -85,10 +85,6 @@ class UserController {
       }
     }
 
-    console.log(`Senha hash ${user.password_hash}`);
-    console.log(`Senha antiga ${oldPassword}`);
-    console.log(`Senha nova ${password}`);
-
     if (oldPassword) {
       if (!(await user.checkPassword(oldPassword))) {
         return res.status(401).json({ error: 'Password does not met' });

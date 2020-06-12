@@ -5,7 +5,7 @@ import multerConfig from './config/multer';
 import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import MovimentController from './app/controllers/MovimentController';
-import MovimentFileController from './app/controllers/MovimentFileController';
+import PictureController from './app/controllers/PictureController';
 
 import authMiddleware from './app/middlewares/auth';
 import ResultController from './app/controllers/ResultController';
@@ -39,17 +39,18 @@ routes.put('/moviments/:id', MovimentController.update);
 routes.delete('/moviments/:id', MovimentController.delete);
 
 // Rotas moviment File
-routes.post(
-  '/moviment-files',
-  upload.single('movimentFile'),
-  MovimentFileController.store
+routes.post('/picture', upload.single('file'), PictureController.store);
+routes.put(
+  '/picture/:id',
+  upload.single('file'),
+  PictureController.update
 );
-routes.delete('/moviment-files/:id', MovimentFileController.delete);
+routes.delete('/picture/:id', PictureController.delete);
 
 // Rotas avatar
 routes.post('/avatar', upload.single('file'), AvatarController.store);
 routes.put('/avatar', upload.single('file'), AvatarController.update);
-routes.delete('/avatar', upload.single('file'), AvatarController.delete);
+routes.delete('/avatar', AvatarController.delete);
 
 // Rota result
 routes.get('/result', ResultController.index);
