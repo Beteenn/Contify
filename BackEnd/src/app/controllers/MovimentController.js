@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import Moviment from '../models/Moviment';
 import Result from '../models/Result';
-import MovimentFile from '../models/MovimentFile';
+import Picture from '../models/Picture';
 
 class MovimentController {
   async list(req, res) {
@@ -204,14 +204,14 @@ class MovimentController {
   async delete(req, res) {
     const moviment = await Moviment.findByPk(req.params.id);
 
+    if (!moviment) {
+      return res.status(404).json({ error: 'Moviment not found' });
+    }
+
     if ((await req.userId) !== moviment.user_id) {
       return res
         .status(401)
         .json({ error: "You don't have permission for this moviment" });
-    }
-
-    if (!moviment) {
-      return res.status(404).json({ error: 'Moviment not found' });
     }
 
     const result = await Result.findOne({ where: { user_id: req.userId } });
@@ -227,7 +227,7 @@ class MovimentController {
 
     await moviment.destroy(req.params.id);
 
-    const picture = await MovimentFile.findByPk(moviment.picture_id);
+    const picture = await Picture.findByPk(moviment.picture_id);
 
     if (picture) {
       await picture.destroy();
