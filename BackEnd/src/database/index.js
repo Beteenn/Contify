@@ -7,8 +7,9 @@ import Avatar from '../app/models/Avatar';
 
 import databaseConfig from '../config/database';
 import Result from '../app/models/Result';
+import Category from '../app/models/Category';
 
-const models = [User, Moviment, Picture, Result, Avatar];
+const models = [User, Moviment, Picture, Result, Avatar, Category];
 
 class Database {
   constructor() {
