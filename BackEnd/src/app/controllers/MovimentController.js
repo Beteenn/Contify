@@ -137,7 +137,7 @@ class MovimentController {
       is_earning: Yup.boolean(),
     });
 
-    if (!(await schema.isValid())) {
+    if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 

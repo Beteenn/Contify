@@ -7,10 +7,11 @@ import UserController from './app/controllers/UserController';
 import MovimentController from './app/controllers/MovimentController';
 import PictureController from './app/controllers/PictureController';
 import FeedbackController from './app/controllers/FeedbackController';
-
-import authMiddleware from './app/middlewares/auth';
 import ResultController from './app/controllers/ResultController';
 import AvatarController from './app/controllers/AvatarController';
+import CategoryController from './app/controllers/CategoryController';
+
+import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -53,10 +54,18 @@ routes.post('/avatar', upload.single('file'), AvatarController.store);
 routes.put('/avatar', upload.single('file'), AvatarController.update);
 routes.delete('/avatar', AvatarController.delete);
 
-// Rota result
+// Rotas result
 routes.get('/result', ResultController.index);
+
+
+// Rotas Category
+routes.get('/category', CategoryController.list);
+routes.post('/category', CategoryController.store);
+routes.put('/category/:id', CategoryController.update);
+routes.delete('/category/:id', CategoryController.delete);
 
 // Rotas feedback
 routes.post('/feedbacks', FeedbackController.store);
+
 
 export default routes;
