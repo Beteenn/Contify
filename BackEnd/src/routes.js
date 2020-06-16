@@ -6,6 +6,7 @@ import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import MovimentController from './app/controllers/MovimentController';
 import PictureController from './app/controllers/PictureController';
+import FeedbackController from './app/controllers/FeedbackController';
 
 import authMiddleware from './app/middlewares/auth';
 import ResultController from './app/controllers/ResultController';
@@ -16,6 +17,10 @@ const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
 routes.post('/sessions', SessionController.store);
+routes.post('/session/google');
+routes.get('/feedbacks', FeedbackController.list);
+routes.put('/feedbacks/:id', FeedbackController.update);
+routes.delete('/feedbacks/:id', FeedbackController.delete);
 
 routes.post('/users', UserController.store);
 
@@ -40,11 +45,7 @@ routes.delete('/moviments/:id', MovimentController.delete);
 
 // Rotas moviment File
 routes.post('/picture', upload.single('file'), PictureController.store);
-routes.put(
-  '/picture/:id',
-  upload.single('file'),
-  PictureController.update
-);
+routes.put('/picture/:id', upload.single('file'), PictureController.update);
 routes.delete('/picture/:id', PictureController.delete);
 
 // Rotas avatar
@@ -54,5 +55,8 @@ routes.delete('/avatar', AvatarController.delete);
 
 // Rota result
 routes.get('/result', ResultController.index);
+
+// Rotas feedback
+routes.post('/feedbacks', FeedbackController.store);
 
 export default routes;

@@ -4,11 +4,12 @@ import User from '../app/models/User';
 import Moviment from '../app/models/Moviment';
 import Picture from '../app/models/Picture';
 import Avatar from '../app/models/Avatar';
+import Feedback from '../app/models/Feedback';
 
 import databaseConfig from '../config/database';
 import Result from '../app/models/Result';
 
-const models = [User, Moviment, Picture, Result, Avatar];
+const models = [User, Moviment, Picture, Result, Avatar, Feedback];
 
 class Database {
   constructor() {
