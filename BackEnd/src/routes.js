@@ -6,6 +6,7 @@ import SessionController from './app/controllers/SessionController';
 import UserController from './app/controllers/UserController';
 import MovimentController from './app/controllers/MovimentController';
 import PictureController from './app/controllers/PictureController';
+import FeedbackController from './app/controllers/FeedbackController';
 import ResultController from './app/controllers/ResultController';
 import AvatarController from './app/controllers/AvatarController';
 import CategoryController from './app/controllers/CategoryController';
@@ -17,6 +18,10 @@ const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
 routes.post('/sessions', SessionController.store);
+routes.post('/session/google');
+routes.get('/feedbacks', FeedbackController.list);
+routes.put('/feedbacks/:id', FeedbackController.update);
+routes.delete('/feedbacks/:id', FeedbackController.delete);
 
 routes.post('/users', UserController.store);
 
@@ -52,10 +57,15 @@ routes.delete('/avatar', AvatarController.delete);
 // Rotas result
 routes.get('/result', ResultController.index);
 
+
 // Rotas Category
 routes.get('/category', CategoryController.list);
 routes.post('/category', CategoryController.store);
 routes.put('/category/:id', CategoryController.update);
 routes.delete('/category/:id', CategoryController.delete);
+
+// Rotas feedback
+routes.post('/feedbacks', FeedbackController.store);
+
 
 export default routes;
