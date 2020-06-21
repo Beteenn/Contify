@@ -17,8 +17,8 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
-routes.post('/sessions', SessionController.store);
-routes.post('/session/google');
+routes.post('/auth', SessionController.store);
+routes.post('/auth/google');
 routes.get('/feedbacks', FeedbackController.list);
 routes.put('/feedbacks/:id', FeedbackController.update);
 routes.delete('/feedbacks/:id', FeedbackController.delete);
