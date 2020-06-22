@@ -57,7 +57,6 @@ routes.delete('/avatar', AvatarController.delete);
 // Rotas result
 routes.get('/result', ResultController.index);
 
-
 // Rotas Category
 routes.get('/category', CategoryController.list);
 routes.post('/category', CategoryController.store);
@@ -66,6 +65,5 @@ routes.delete('/category/:id', CategoryController.delete);
 
 // Rotas feedback
 routes.post('/feedbacks', FeedbackController.store);
-
 
 export default routes;
