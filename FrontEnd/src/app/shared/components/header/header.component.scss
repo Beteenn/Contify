@@ -9,19 +9,31 @@
     box-shadow: 0px 3px 6px #00000029;
     opacity: 1;
 
-    .app-name {
-        font-size: 36px;
-        color: #3ACE80;
+
+    //Logo no canto esquerdo
+    .app-logo {
+        position: relative;
+        max-height: 40px;
+    }
+
+    .pages {
+        text-decoration:none;
+        padding-right: 56px;
+        color:#707070;
     }
 
     .login {
-        text-decoration: none;
         color: #3ACE80;
+        padding-right: 10px;
     }
 
     .register {
         color: #FFFFFF;
         background-color: #3ACE80;
         border-radius: 20px;
+    }
+
+    a {
+        text-decoration: none;
     }
 }

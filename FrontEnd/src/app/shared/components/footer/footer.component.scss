@@ -1,0 +1,22 @@
+.footer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  background-color: white;
+  margin: 0;
+
+  font-size: 15px;
+  color: #707070;
+  justify-content: center;
+
+  li {
+    display: inline-block;
+    list-style: none;
+    position: relative;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: #707070;
+}

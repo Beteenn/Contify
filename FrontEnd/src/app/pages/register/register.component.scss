@@ -6,19 +6,21 @@
   background-image: linear-gradient(#3ace80, #48db8d);
 }
 
-.login-card {
+.register-card {
   min-width: 400px;
   max-width: 400px;
   border-radius: 40px;
 }
 
-.icon {
-  font-size: 0.9rem;
-  color: #3ace80;
-}
-
 .label {
   padding-left: 10px;
+}
+
+.name-input {
+  width: 100%;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
 }
 
 .email-input {
@@ -31,34 +33,22 @@
 .password-input {
   width: 100%;
   border-radius: 20px;
-  margin-bottom: 20px;
   font-size: 0.9rem;
 }
 
-.forgot-pass {
-  color: #707070;
-  font-size: 0.8rem;
-}
-
-.forgot-pass:hover {
-  text-decoration: none;
-  color: #3ace80;
-  transition: 0.1s;
-}
-
-.login-button {
+.register-button {
   background-color: #3ace80;
   border-radius: 20px;
   color: white;
   width: 120px;
 }
 
-.create-account {
+.has-account {
   color: #3ace80;
   font-size: 0.9rem;
 }
 
 p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #707070;
 }

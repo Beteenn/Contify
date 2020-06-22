@@ -1,3 +1,16 @@
-<mat-drawer-container class="container" autosize>
-  <app-header></app-header>
+<mat-drawer-container class="container nopad nomargin col" autosize>
+
+  <mat-drawer id="drawer" #drawer class="conteudo-menu" mode="push">
+    <app-sidemenu></app-sidemenu>
+  </mat-drawer>
+  <button mat-button (click)="drawer.toggle()" *ngIf="isDashboard()">Menuzinho bolado</button>
+
+  <app-header *ngIf="!isLogged() && isHomeOrAbout()"></app-header>
+
+  <div class="conteudo nopad nomargin">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-footer class="footer" *ngIf="isHomeOrAbout()"></app-footer>
+
 </mat-drawer-container>
