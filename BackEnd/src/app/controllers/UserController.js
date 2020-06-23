@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 import Result from '../models/Result';
+import Avatar from '../models/Avatar';
 
 class UserController {
   async list(req, res) {
@@ -67,7 +68,7 @@ class UserController {
     }
 
     const user = await User.findByPk(req.params.id, {
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'password_hash'],
     });
 
     if (!user) {
@@ -84,8 +85,10 @@ class UserController {
       }
     }
 
-    if (oldPassword && (await !user.checkPassword(oldPassword))) {
-      return res.status(400).json({ error: 'Password does not met' });
+    if (oldPassword) {
+      if (!(await user.checkPassword(oldPassword))) {
+        return res.status(401).json({ error: 'Password does not met' });
+      }
     }
 
     if (password && password === oldPassword) {
@@ -110,7 +113,15 @@ class UserController {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    await user.destroy(req.params.id);
+    await user.destroy();
+
+    // if user has a avatar, delete the avatar from table "avatars"
+
+    if ((await user.avatar_id) !== null) {
+      const avatar = Avatar.findByPk(user.avatar_id);
+      (await avatar).destroy();
+    }
+    //
 
     return res.json({ ok: `The user ${user.name} was deleted` });
   }

@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class MovimentFile extends Model {
+class Avatar extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -16,4 +16,4 @@ class MovimentFile extends Model {
   }
 }
 
-export default MovimentFile;
+export default Avatar;
