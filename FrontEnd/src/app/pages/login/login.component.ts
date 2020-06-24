@@ -34,14 +34,6 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'É necessário um e-mail';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
   get f() { return this.loginForm.controls; };
 
   login() {

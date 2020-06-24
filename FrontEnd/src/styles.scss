@@ -6,15 +6,25 @@ body { margin: 0; font-family: 'Maven Pro', sans-serif; }
 // CSS para espaçamentos
 
 .nopad {
-    padding: 0px;
+  padding: 0px;
 }
 
 .nomargin {
-    margin: 0px;
+  margin: 0px;
 }
 
 .card-divider {
-    //para cards
-    padding-top: 16px;
-    padding-bottom: 16px;
+  //para cards
+  padding: 16px 0px;
 }
+
+// CSS para imagens
+
+.app-logo {
+  max-width: 250px;
+}
+
+.form-icon {
+  color: #3ace80;
+}
+
