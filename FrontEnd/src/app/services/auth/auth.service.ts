@@ -35,14 +35,10 @@ export class AuthService {
       "email": email,
       "password": password,
     }
-    console.log("chegou no login com os dados: ", data);
     return this.http.post(environment.apiUrl + "auth", data)
       .pipe(map(data => {
-        console.log("ta fazendo o login, dados: ", data);
         this.loggedStatus = true;
-        console.log("o usuario esta logado? ", this.loggedStatus);
         let token = { token: data['token']};
-        console.log("token: ", token);
         localStorage.setItem('token', JSON.stringify(token));
         this.currentUserTokenSubject.next(token);
         let user = { user: data['user']};

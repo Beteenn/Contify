@@ -23,13 +23,6 @@ export class AppComponent {
     return true;
   }
 
-  isDashboard() {
-    var url = window.location.href;
-    if (url != 'http://localhost:3001/dashboard')
-      return false;
-    return true;
-  }
-
   isLogged() {
     return this.authService.isLogged;
   }
