@@ -59,7 +59,6 @@ routes.delete('/avatar', AvatarController.delete);
 // Rotas result
 routes.get('/result', ResultController.index);
 
-=======
 // Rotas Category
 routes.get('/category', CategoryController.list);
 routes.get('/category/:id', CategoryController.index);
