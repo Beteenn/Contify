@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import mongoose from 'mongoose';
 
 import User from '../app/models/User';
 import Moviment from '../app/models/Moviment';
@@ -15,6 +16,7 @@ const models = [User, Moviment, Picture, Result, Avatar, Category, Feedback];
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   init() {
@@ -25,6 +27,14 @@ class Database {
       .map(
         (model) => model.associate && model.associate(this.connection.models)
       );
+  }
+
+  mongo() {
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+    });
   }
 }
 
