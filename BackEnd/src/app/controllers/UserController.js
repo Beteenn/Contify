@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import User from '../models/User';
 import Result from '../models/Result';
 import Avatar from '../models/Avatar';
+import Notification from '../schemas/Notification';
 
 import WellcomeMail from '../jobs/WellcomeMail';
 import Queue from '../../lib/Queue';
@@ -51,6 +52,13 @@ class UserController {
     await Queue.add(WellcomeMail.key, {
       name,
       email,
+    });
+
+    // Create notification of welcome for new users
+
+    await Notification.create({
+      content: `Seja bem vindo, ${name}. Esperamos que nossa plataforma o auxilie em sua vida fincanceira.`,
+      user: id,
     });
 
     return res.json({ id, name, email });
