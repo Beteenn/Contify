@@ -3,9 +3,6 @@ import User from '../models/User';
 import Result from '../models/Result';
 import Avatar from '../models/Avatar';
 
-import WellcomeMail from '../jobs/WellcomeMail';
-import Queue from '../../lib/Queue';
-
 class UserController {
   async list(req, res) {
     const users = await User.findAll({ attributes: ['id', 'name', 'email'] });
@@ -47,11 +44,6 @@ class UserController {
     const { id, name } = await User.create(req.body);
 
     await Result.create({ user_id: id });
-
-    await Queue.add(WellcomeMail.key, {
-      name,
-      email,
-    });
 
     return res.json({ id, name, email });
   }
