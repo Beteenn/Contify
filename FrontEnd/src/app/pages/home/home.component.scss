@@ -1,0 +1,97 @@
+.top {
+  background-color: white;
+  margin-left: 30%;
+  margin-right: 30%;
+
+  font-size: 25px;
+  color: #575757;
+  width: 100%;
+
+  // Cor verde para os textos
+  .green {
+    color: #3ace80;
+  }
+
+  .email-box {
+    display: flex;
+    justify-content: left;
+    padding: 3% 0 0 0;
+    background-color: white;
+    border-radius: 39px;
+
+    font-weight: 300;
+  }
+
+  .login-home {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-left: 5%;
+
+    font-size: 15px;
+    color: #c7c7c7;
+    letter-spacing: 0.01px;
+  }
+
+  .register-home {
+    display: flex;
+    justify-content: center;
+    background-color: #3ace80;
+    border-radius: 39px;
+    padding-top: 3%;
+    margin: 0;
+    width: 40%;
+    margin-left: 25%;
+
+
+    font-size: 15px;
+    color: white;
+  }
+
+  .up-button {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    color: #3ACE80;
+
+    margin-left: 75%;
+    margin-top: 10%;
+  }
+
+  .breve {
+    display: flex;
+    justify-content: center;
+    margin-top: 7%;
+
+    color: #c7c7c7;
+    font-weight: 400;
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+    letter-spacing: 0.07px;
+  }
+
+  h1:first-child {
+    margin-top: 30%;
+    margin-bottom: 0;
+  }
+
+  h1:last-child {
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 200;
+  }
+}

@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import Category from '../models/Category';
+import Moviment from '../models/Moviment';
 
 class CategoryController {
   async list(req, res) {
@@ -15,6 +16,22 @@ class CategoryController {
     }
 
     return res.json(category);
+  }
+
+  async index(req, res) {
+    const categorys = Moviment.findAll({
+      where: {
+        category_id: req.params.id,
+      },
+    });
+
+    if (categorys) {
+      return res
+        .status(404)
+        .json({ error: "You don't have moviments with this category" });
+    }
+
+    return res.json(categorys);
   }
 
   async store(req, res) {

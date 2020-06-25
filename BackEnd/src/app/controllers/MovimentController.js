@@ -1,7 +1,11 @@
 import * as Yup from 'yup';
+import { isBefore, parseISO, format } from 'date-fns';
+import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
 import Result from '../models/Result';
 import Picture from '../models/Picture';
+import Notification from '../schemas/Notification';
+import Category from '../models/Category';
 
 class MovimentController {
   async list(req, res) {
@@ -77,6 +81,8 @@ class MovimentController {
       description: Yup.string(),
       valor: Yup.number().positive().required(),
       expires: Yup.date().required(),
+      paid: Yup.boolean(),
+      category_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -85,7 +91,22 @@ class MovimentController {
 
     const user_id = req.userId;
 
-    const { name, description, valor, expires, is_earning } = req.body;
+    const {
+      name,
+      description,
+      valor,
+      expires,
+      is_earning,
+      paid,
+      category_id,
+    } = req.body;
+
+    if (category_id) {
+      const checkCategoryExists = await Category.findByPk(category_id);
+      if (!checkCategoryExists) {
+        return res.status(404).json({ error: 'This category does not exists' });
+      }
+    }
 
     const { id } = await Moviment.create({
       name,
@@ -94,13 +115,33 @@ class MovimentController {
       expires,
       is_earning,
       user_id,
+      paid,
+      category_id,
     });
 
     // put the moviment on result
 
     const result = await Result.findOne({ where: { user_id: req.userId } });
 
-    if (is_earning === true) {
+    /**
+     * Create notification
+     */
+
+    const dateExpires = parseISO(expires);
+    const formatDate = format(dateExpires, "'date' dd'/'MM'/'yyyy");
+
+    if (paid === false) {
+      if (isBefore(dateExpires, new Date())) {
+        return res.status(400).json({ error: 'Past dates are not permitted' });
+      }
+
+      schedule.scheduleJob(dateExpires, async function store() {
+        await Notification.create({
+          content: `The moviment ${name} expires today: ${formatDate}`,
+          user: user_id,
+        });
+      });
+    } else if (is_earning === true) {
       result.result += valor;
     } else {
       result.result -= valor;
@@ -124,6 +165,7 @@ class MovimentController {
       expires,
       is_earning,
       user_id,
+      category_id,
       resultTotal,
     });
   }
@@ -209,7 +251,7 @@ class MovimentController {
   }
 
   async delete(req, res) {
-    const moviment = await Moviment.findByPk(req.params.id);
+    const moviment = await Moviment.findByPk(req.userId);
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
