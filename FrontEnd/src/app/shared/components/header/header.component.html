@@ -1,5 +1,21 @@
-<mat-toolbar color="#FFFFFF" class="header mat-elevation-z4">
-    <span class="app-name">Contify</span>
-    <span><a routerLink="/login" class="login">Entrar</a></span>
-    <button mat-button class="register">Registrar-se</button>
+<mat-toolbar color="#FFFFFF" class="row header mat-elevation-z4 align-items-center nomargin">
+    <div class="col-2 nopad">
+      <div class="row nomargin justify-content-center">
+        <a routerLink="/home"><img class="app-logo" src="assets/img/logos/Logo-verde.png" alt="Logo Contify"></a>
+      </div>
+    </div>
+
+    <div class="col-8 nopad">
+      <div class="row justify-content-center">
+        <a routerLink="/home" class="pages"><span>INÍCIO</span></a>
+        <a routerLink="/about" class="pages"><span>SOBRE</span></a>
+      </div>
+    </div>
+
+    <div class="col-2 nopad">
+      <div class="row justify-content-center">
+        <span><a routerLink="/login" class="login">Entrar</a></span>
+        <a routerLink="/register"><button mat-button class="register">Registrar-se</button></a>
+      </div>
+    </div>
 </mat-toolbar>

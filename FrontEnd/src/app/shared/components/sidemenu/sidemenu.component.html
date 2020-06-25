@@ -1,1 +1,14 @@
-<p>sidemenu works!</p>
+<div class="row justify-content-center nomargin">
+  <img src="assets/img/logos/Logo-branco-icon.png" alt="White logo icon" class="logo-icon">
+</div>
+
+<mat-divider class="card-divider white"></mat-divider>
+
+<mat-list class="nopad">
+  <mat-list-item>
+    <button mat-button (click)="openMovimentInput()" class="mat-elevation-z2">Adicionar Movimento</button>
+  </mat-list-item>
+  <mat-list-item>
+    <button mat-button (click)="logout()" routerLink="/home" class="mat-elevation-z2">Sair</button>
+  </mat-list-item>
+</mat-list>

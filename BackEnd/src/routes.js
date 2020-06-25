@@ -20,6 +20,7 @@ const upload = multer(multerConfig);
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
 routes.post('/session/google');
+routes.post('/auth/google');
 routes.get('/feedbacks', FeedbackController.list);
 routes.put('/feedbacks/:id', FeedbackController.update);
 routes.delete('/feedbacks/:id', FeedbackController.delete);
@@ -58,7 +59,8 @@ routes.delete('/avatar', AvatarController.delete);
 // Rotas result
 routes.get('/result', ResultController.index);
 
-// Rotas category
+=======
+// Rotas Category
 routes.get('/category', CategoryController.list);
 routes.get('/category/:id', CategoryController.index);
 routes.post('/category', CategoryController.store);
