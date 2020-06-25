@@ -10,6 +10,7 @@ import FeedbackController from './app/controllers/FeedbackController';
 import ResultController from './app/controllers/ResultController';
 import AvatarController from './app/controllers/AvatarController';
 import CategoryController from './app/controllers/CategoryController';
+import NotificationController from './app/controllers/NotificationController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -18,6 +19,7 @@ const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
+routes.post('/session/google');
 routes.post('/auth/google');
 routes.get('/feedbacks', FeedbackController.list);
 routes.put('/feedbacks/:id', FeedbackController.update);
@@ -34,7 +36,7 @@ routes.use(authMiddleware);
 routes.get('/users', UserController.list);
 routes.get('/users/:id', UserController.index);
 routes.put('/users/:id', UserController.update);
-routes.delete('/users/:id', UserController.delete);
+routes.delete('/users', UserController.delete);
 
 // Rotas Moviment
 routes.get('/moviments/', MovimentController.list);
@@ -57,13 +59,18 @@ routes.delete('/avatar', AvatarController.delete);
 // Rotas result
 routes.get('/result', ResultController.index);
 
+=======
 // Rotas Category
 routes.get('/category', CategoryController.list);
+routes.get('/category/:id', CategoryController.index);
 routes.post('/category', CategoryController.store);
 routes.put('/category/:id', CategoryController.update);
 routes.delete('/category/:id', CategoryController.delete);
 
 // Rotas feedback
 routes.post('/feedbacks', FeedbackController.store);
+
+// Rotas Notification
+routes.get('/notification', NotificationController.index);
 
 export default routes;
