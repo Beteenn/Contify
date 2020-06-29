@@ -42,7 +42,7 @@ class MovimentController {
       where: { user_id: req.userId, is_earning: type },
       order: ['created_at'],
       limit: 10,
-      offset: (page - 1) * 10,
+      offset: (page - 1) * 5,
       attributes: [
         'id',
         'name',
@@ -73,6 +73,40 @@ class MovimentController {
     }
 
     return res.json(moviment);
+  }
+
+  async earningResult(req, res) {
+    const moviment = await Moviment.findAll({
+      where: { user_id: req.userId, is_earning: true },
+      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
+    });
+
+    if (!moviment) {
+      return res
+        .status(401)
+        .json({ error: 'This user dont have moviment of this type' });
+    }
+
+    const result = await moviment.reduce((total, x) => total + x.valor, 0);
+
+    return res.json(result);
+  }
+
+  async debtResult(req, res) {
+    const moviment = await Moviment.findAll({
+      where: { user_id: req.userId, is_earning: false },
+      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
+    });
+
+    if (!moviment) {
+      return res
+        .status(401)
+        .json({ error: 'This user dont have moviment of this type' });
+    }
+
+    const result = await moviment.reduce((total, x) => total + x.valor, 0);
+
+    return res.json(result);
   }
 
   async store(req, res) {

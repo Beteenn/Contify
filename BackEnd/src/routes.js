@@ -27,8 +27,6 @@ routes.delete('/feedbacks/:id', FeedbackController.delete);
 
 routes.post('/users', UserController.store);
 
-routes.use(authMiddleware);
-
 // Rotas que necessitam de login
 routes.use(authMiddleware);
 
@@ -41,6 +39,8 @@ routes.delete('/users', UserController.delete);
 // Rotas Moviment
 routes.get('/moviments/', MovimentController.list);
 routes.get('/moviments/', MovimentController.typeList);
+routes.get('/moviments/earning', MovimentController.earningResult);
+routes.get('/moviments/debt', MovimentController.debtResult);
 routes.get('/moviments/:id', MovimentController.index);
 routes.post('/moviments', MovimentController.store);
 routes.put('/moviments/:id', MovimentController.update);
