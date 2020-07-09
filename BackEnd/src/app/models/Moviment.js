@@ -10,6 +10,7 @@ class Moviment extends Model {
         expires: Sequelize.DATE,
         category_id: Sequelize.INTEGER,
         is_earning: Sequelize.BOOLEAN,
+        paid: Sequelize.BOOLEAN,
       },
       {
         sequelize,
