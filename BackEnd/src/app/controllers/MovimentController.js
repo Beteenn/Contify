@@ -59,6 +59,10 @@ class MovimentController {
         'is_earning',
         'paid',
       ],
+      include: {
+        model: Category,
+        attributes: ['name'],
+      },
     });
 
     if (!moviment) {
@@ -225,8 +229,10 @@ class MovimentController {
       name: Yup.string(),
       description: Yup.string(),
       valor: Yup.number().positive(),
+      category_id: Yup.number().positive(),
       expires: Yup.date(),
       is_earning: Yup.boolean(),
+      paid: Yup.boolean(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -239,10 +245,12 @@ class MovimentController {
         'name',
         'description',
         'valor',
+        'category_id',
         'expires',
         'is_earning',
         'user_id',
         'picture_id',
+        'paid',
       ],
     });
 
@@ -279,7 +287,14 @@ class MovimentController {
 
     await moviment.update(req.body);
 
-    const { id, name, description, expires } = await moviment.save();
+    const {
+      id,
+      name,
+      category_id,
+      description,
+      expires,
+      paid,
+    } = await moviment.save();
 
     const resultTotal = await Result.findOne({
       where: { user_id: req.userId },
@@ -294,9 +309,11 @@ class MovimentController {
       description,
       expires,
       valor,
+      category_id,
       is_earning,
       user_id,
       resultTotal,
+      paid,
     });
   }
 
