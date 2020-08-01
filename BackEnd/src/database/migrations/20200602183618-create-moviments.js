@@ -32,7 +32,7 @@ module.exports = {
         defaultValue: true,
       },
       expires: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
       is_earning: {

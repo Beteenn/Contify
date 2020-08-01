@@ -39,9 +39,11 @@ routes.delete('/users', UserController.delete);
 // Rotas Moviment
 routes.get('/moviments/', MovimentController.list);
 routes.get('/moviments/', MovimentController.typeList);
+// routes.get('/moviments/listByMonth/:month', MovimentController.listByDate);
 routes.get('/moviments/earning', MovimentController.earningResult);
 routes.get('/moviments/debt', MovimentController.debtResult);
 routes.get('/moviments/:id', MovimentController.index);
+routes.get('/moviments/listByMonth/:date', MovimentController.listByDate);
 routes.post('/moviments', MovimentController.store);
 routes.put('/moviments/:id', MovimentController.update);
 routes.delete('/moviments/:id', MovimentController.delete);
