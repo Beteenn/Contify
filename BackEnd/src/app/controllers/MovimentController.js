@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 import { isBefore, parseISO, format } from 'date-fns';
 import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
-import Result from '../models/Result';
+import Result from './ResultController';
+import result from '../models/Result';
 import Picture from '../models/Picture';
 import Notification from '../schemas/Notification';
 import Category from '../models/Category';
@@ -91,40 +92,6 @@ class MovimentController {
     return res.json(moviment);
   }
 
-  async earningResult(req, res) {
-    const moviment = await Moviment.findAll({
-      where: { user_id: req.userId, is_earning: true },
-      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
-    });
-
-    if (!moviment) {
-      return res
-        .status(401)
-        .json({ error: 'This user dont have moviment of this type' });
-    }
-
-    const result = await moviment.reduce((total, x) => total + x.valor, 0);
-
-    return res.json(result);
-  }
-
-  async debtResult(req, res) {
-    const moviment = await Moviment.findAll({
-      where: { user_id: req.userId, is_earning: false },
-      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
-    });
-
-    if (!moviment) {
-      return res
-        .status(401)
-        .json({ error: 'This user dont have moviment of this type' });
-    }
-
-    const result = await moviment.reduce((total, x) => total + x.valor, 0);
-
-    return res.json(result);
-  }
-
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -151,6 +118,7 @@ class MovimentController {
       category_id,
     } = req.body;
 
+    // Validation of category id
     if (category_id) {
       const checkCategoryExists = await Category.findByPk(category_id);
       if (!checkCategoryExists) {
@@ -168,10 +136,6 @@ class MovimentController {
       paid,
       category_id,
     });
-
-    // put the moviment on result
-
-    const result = await Result.findOne({ where: { user_id: req.userId } });
 
     /**
      * Create notification
@@ -191,18 +155,15 @@ class MovimentController {
           user: user_id,
         });
       });
-    } else if (is_earning === true) {
-      result.result += valor;
-    } else {
-      result.result -= valor;
     }
 
-    await result.update();
-    await result.save();
+    // Changing result
+    if (paid === true) {
+      await Result.newMoviment(req);
+    }
 
-    const resultTotal = await Result.findOne({
+    const resultTotal = await result.findOne({
       where: { user_id: req.userId },
-      attributes: ['result'],
     });
 
     // returning the moviments
@@ -226,7 +187,7 @@ class MovimentController {
       description: Yup.string(),
       valor: Yup.number().positive(),
       expires: Yup.date(),
-      is_earning: Yup.boolean(),
+      paid: Yup.boolean(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -239,6 +200,7 @@ class MovimentController {
         'name',
         'description',
         'valor',
+        'paid',
         'expires',
         'is_earning',
         'user_id',
@@ -250,41 +212,20 @@ class MovimentController {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
-    const user_id = req.userId;
-    const { is_earning, valor } = req.body;
+    const resultTotal = await Result.editMoviment(req, moviment);
 
-    const result = await Result.findOne({ where: { user_id: req.userId } });
+    const {
+      id,
+      name,
+      description,
+      expires,
+      valor,
+      paid,
+      is_earning,
+      user_id,
+    } = await moviment.update(req.body);
 
-    // put the moviments edit on the result
-    if (valor || is_earning) {
-      if (is_earning === (await moviment.is_earning)) {
-        if (is_earning === true) {
-          result.result -= await moviment.valor;
-          result.result += await valor;
-        } else {
-          result.result += await moviment.valor;
-          result.result -= await valor;
-        }
-      } else if (is_earning === true) {
-        result.result += await moviment.valor;
-        result.result += await valor;
-      } else {
-        result.result -= await moviment.valor;
-        result.result -= await valor;
-      }
-
-      await result.update();
-      await result.save();
-    }
-
-    await moviment.update(req.body);
-
-    const { id, name, description, expires } = await moviment.save();
-
-    const resultTotal = await Result.findOne({
-      where: { user_id: req.userId },
-      attributes: ['result'],
-    });
+    await moviment.save();
 
     // returning the moviments
 
@@ -294,6 +235,7 @@ class MovimentController {
       description,
       expires,
       valor,
+      paid,
       is_earning,
       user_id,
       resultTotal,
@@ -313,16 +255,7 @@ class MovimentController {
         .json({ error: "You don't have permission for this moviment" });
     }
 
-    const result = await Result.findOne({ where: { user_id: req.userId } });
-
-    if (moviment.is_earning === true) {
-      result.result -= await moviment.valor;
-    } else {
-      result.result += await moviment.valor;
-    }
-
-    await result.update();
-    await result.save();
+    const resultTotal = await Result.deleteMoviment(req, moviment);
 
     await moviment.destroy(req.params.id);
 
@@ -333,7 +266,7 @@ class MovimentController {
     }
 
     return res.json({
-      ok: `The moviment ${moviment.name} was deleted, Result: ${result.result}`,
+      ok: `The moviment ${moviment.name} was deleted, Result: ${resultTotal.result}`,
     });
   }
 }
