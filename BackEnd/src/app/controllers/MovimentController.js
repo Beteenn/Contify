@@ -1,5 +1,11 @@
 import * as Yup from 'yup';
-import { isBefore, parseISO, format } from 'date-fns';
+import {
+  isBefore,
+  parseISO,
+  format,
+  endOfMonth,
+  eachDayOfInterval,
+} from 'date-fns';
 import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
 import Result from '../models/Result';
@@ -125,6 +131,30 @@ class MovimentController {
     return res.json(result);
   }
 
+  async listByDate(req, res) {
+    const { date } = req.params;
+    const daysOfMonth = eachDayOfInterval({
+      start: parseISO(date),
+      end: endOfMonth(parseISO(date)),
+    });
+    const month = format(parseISO(date), 'MMMM');
+
+    const moviment = await Moviment.findAll({
+      where: {
+        user_id: req.userId,
+        expires: daysOfMonth,
+      },
+      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
+    });
+
+    if (moviment.length === 0)
+      return res.status(404).json({
+        error: `You do not have moviments in the month of ${month}.`,
+      });
+
+    return res.json(moviment);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -145,8 +175,8 @@ class MovimentController {
       name,
       description,
       valor,
-      expires,
       is_earning,
+      expires,
       paid,
       category_id,
     } = req.body;
@@ -301,16 +331,11 @@ class MovimentController {
   }
 
   async delete(req, res) {
+
     const moviment = await Moviment.findByPk(req.params.id);
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
-    }
-
-    if ((await req.userId) !== moviment.user_id) {
-      return res
-        .status(401)
-        .json({ error: "You don't have permission for this moviment" });
     }
 
     const result = await Result.findOne({ where: { user_id: req.userId } });
