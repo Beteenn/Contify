@@ -22,6 +22,7 @@ class Moviment extends Model {
     this.belongsTo(models.User, { foreignKey: 'user_id' });
     this.belongsTo(models.Picture, { foreignKey: 'picture_id' });
     this.belongsTo(models.Category, { foreignKey: 'category_id' });
+    this.belongsTo(models.CreditCard, { foreignKey: 'credit_cards_id' });
   }
 }
 

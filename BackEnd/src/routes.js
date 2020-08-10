@@ -11,6 +11,8 @@ import ResultController from './app/controllers/ResultController';
 import AvatarController from './app/controllers/AvatarController';
 import CategoryController from './app/controllers/CategoryController';
 import NotificationController from './app/controllers/NotificationController';
+import CreditCardController from './app/controllers/CreditCardController';
+import CreditCompanyController from './app/controllers/CreditCompanyController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -44,6 +46,10 @@ routes.get('/moviments/earning', MovimentController.earningResult);
 routes.get('/moviments/debt', MovimentController.debtResult);
 routes.get('/moviments/:id', MovimentController.index);
 routes.get('/moviments/listByMonth/:date', MovimentController.listByDate);
+routes.get(
+  '/moviments/listByCreditCard/:id',
+  MovimentController.listByCreditCard
+);
 routes.post('/moviments', MovimentController.store);
 routes.put('/moviments/:id', MovimentController.update);
 routes.delete('/moviments/:id', MovimentController.delete);
@@ -73,5 +79,17 @@ routes.post('/feedbacks', FeedbackController.store);
 
 // Rotas Notification
 routes.get('/notification', NotificationController.index);
+
+// Rotas Credit cards
+routes.get('/creditCard', CreditCardController.list);
+routes.post('/creditCard', CreditCardController.store);
+routes.put('/creditCard/:id', CreditCardController.update);
+routes.delete('/creditCard/:id', CreditCardController.delete);
+
+// Rotas Credit companys
+routes.get('/creditCompany', CreditCompanyController.list);
+routes.post('/creditCompany', CreditCompanyController.store);
+routes.put('/creditCompany/:id', CreditCompanyController.update);
+routes.delete('/creditCompany/:id', CreditCompanyController.delete);
 
 export default routes;
