@@ -8,7 +8,7 @@ class WellcomeMail {
   async handle({ data }) {
     const { name, email } = data;
 
-    console.log('A fila executou');
+    console.log('e-mail de boas vindas enviado');
 
     await Mail.sendMail({
       to: `${name} <${email}>`,
