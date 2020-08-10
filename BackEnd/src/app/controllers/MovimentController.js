@@ -20,17 +20,23 @@ class MovimentController {
 
     const moviment = await Moviment.findAll({
       where: { user_id: req.userId },
-      order: ['created_at'],
-      limit: 10,
-      offset: (page - 1) * 10,
+      order: ['expires'],
+      limit: 5,
+      offset: (page - 1) * 5,
       attributes: [
         'id',
         'name',
         'description',
         'valor',
+        'category_id',
         'expires',
         'is_earning',
+        'paid',
       ],
+      include: {
+        model: Category,
+        attributes: ['name'],
+      },
     });
 
     if (!moviment) {
@@ -47,16 +53,18 @@ class MovimentController {
 
     const moviment = await Moviment.findAll({
       where: { user_id: req.userId, is_earning: type },
-      order: ['created_at'],
-      limit: 10,
+      order: ['expires'],
+      limit: 5,
       offset: (page - 1) * 5,
       attributes: [
         'id',
         'name',
         'description',
         'valor',
+        'category_id',
         'expires',
         'is_earning',
+        'paid',
       ],
     });
 
@@ -72,7 +80,15 @@ class MovimentController {
   async index(req, res) {
     const moviment = await Moviment.findByPk(req.params.id, {
       where: { user_id: req.userId },
-      attributes: ['name', 'description', 'valor', 'expires', 'is_earning'],
+      attributes: [
+        'name',
+        'description',
+        'valor',
+        'category_id',
+        'expires',
+        'is_earning',
+        'paid',
+      ],
     });
 
     if (!moviment) {

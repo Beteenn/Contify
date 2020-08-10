@@ -5,8 +5,8 @@ import Moviment from '../models/Moviment';
 class CategoryController {
   async list(req, res) {
     const category = await Category.findAll({
-      where: { user_id: req.userId },
       attributes: ['id', 'name'],
+      order: ['id'],
     });
 
     if (!category) {
