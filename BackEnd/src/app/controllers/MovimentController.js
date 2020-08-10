@@ -12,6 +12,7 @@ import Result from '../models/Result';
 import Picture from '../models/Picture';
 import Notification from '../schemas/Notification';
 import Category from '../models/Category';
+import CreditCard from '../models/CreditCard';
 
 class MovimentController {
   async list(req, res) {
@@ -155,6 +156,28 @@ class MovimentController {
     return res.json(moviment);
   }
 
+  async listByCreditCard(req, res) {
+    const creditCard = await CreditCard.findByPk(req.params.id);
+
+    if (!creditCard) {
+      return res
+        .status(404)
+        .json({ error: 'This credit card does not exists' });
+    }
+
+    const moviments = await Moviment.findAll({
+      where: { credit_cards_id: req.params.id, user_id: req.userId },
+    });
+
+    if (moviments.length === 0) {
+      return res.status(404).json({
+        error: `You don't have moviments with the credit card "${creditCard.name}"`,
+      });
+    }
+
+    return res.json(moviments);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -163,6 +186,7 @@ class MovimentController {
       expires: Yup.date().required(),
       paid: Yup.boolean(),
       category_id: Yup.number(),
+      credit_cards_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -179,12 +203,22 @@ class MovimentController {
       expires,
       paid,
       category_id,
+      credit_cards_id,
     } = req.body;
 
     if (category_id) {
       const checkCategoryExists = await Category.findByPk(category_id);
       if (!checkCategoryExists) {
         return res.status(404).json({ error: 'This category does not exists' });
+      }
+    }
+
+    if (credit_cards_id) {
+      const CheckCreditExists = await CreditCard.findByPk(credit_cards_id);
+      if (!CheckCreditExists) {
+        return res
+          .status(404)
+          .json({ error: 'This credit card does not exists' });
       }
     }
 
@@ -197,6 +231,7 @@ class MovimentController {
       user_id,
       paid,
       category_id,
+      credit_cards_id,
     });
 
     // put the moviment on result
@@ -246,6 +281,7 @@ class MovimentController {
       is_earning,
       user_id,
       category_id,
+      credit_cards_id,
       resultTotal,
     });
   }
@@ -331,8 +367,12 @@ class MovimentController {
   }
 
   async delete(req, res) {
-
-    const moviment = await Moviment.findByPk(req.params.id);
+    const moviment = await Moviment.findOne({
+      where: {
+        user_id: req.userId,
+        id: req.params.id,
+      },
+    });
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
