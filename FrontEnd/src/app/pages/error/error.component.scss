@@ -1,0 +1,29 @@
+.background {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(#3ace80, #48db8d);
+
+  .error-card {
+    width: 1500px;
+    height: 900px;
+    border-radius: 240px 240px 240px 0px;
+    padding: 90px;
+
+    .text-title {
+      color: #707070;
+      font-size: 72px;
+      margin-bottom: 30px;
+    }
+
+    .text-body {
+      color: #707070;
+      font-size: 64px;
+      margin-bottom: 30px;
+    }
+
+    .error-img {
+      width: 585px;
+      height: 440px;
+    }
+  }
+}

@@ -12,9 +12,11 @@ export class AppComponent {
     private authService: AuthService,
   ) { }
 
-  showFiller = false;
-
   title = 'Contify';
+
+  isLogged() {
+    return this.authService.isLogged;
+  }
 
   isHomeOrAbout() {
     var url = window.location.href;
@@ -23,7 +25,10 @@ export class AppComponent {
     return true;
   }
 
-  isLogged() {
-    return this.authService.isLogged;
+  isDashboard() {
+    var url = window.location.href;
+    if (url != 'http://localhost:3001/dashboard')
+      return false;
+    return true;
   }
 }

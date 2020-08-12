@@ -5,12 +5,13 @@ body { margin: 0; font-family: 'Maven Pro', sans-serif; }
 
 // CSS para espaçamentos
 
-.nopad {
-  padding: 0px;
+.no-pad-and-marg {
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 .nomargin {
-  margin: 0px;
+  margin: 0px !important;
 }
 
 .card-divider {
@@ -27,4 +28,3 @@ body { margin: 0; font-family: 'Maven Pro', sans-serif; }
 .form-icon {
   color: #3ace80;
 }
-

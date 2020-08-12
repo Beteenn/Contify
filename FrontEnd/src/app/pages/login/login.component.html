@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="row align-items-center justify-content-center h-100">
+<div class="login">
+  <div class="row align-items-center justify-content-center h-100 nomargin">
     <mat-card class="login-card mat-elevation-z4">
       <div class="row justify-content-center">
         <img class="app-logo" src="assets/img/logos/Logo-verde.png" alt="Logo Contify">
@@ -14,19 +14,21 @@
       <mat-card-content>
         <form [formGroup]="loginForm">
           <mat-form-field class="email-input" appearance="outline">
-            <mat-label class="label"><mat-icon class="form-icon">alternate_email</mat-icon> Insira seu e-mail</mat-label>
+            <mat-icon matPrefix class="form-icon">alternate_email</mat-icon>
+            <mat-label class="label">Insira seu e-mail</mat-label>
             <input matInput formControlName="email" placeholder="Ex.: enrique.araujo@gmail.com" [formControl]="email" required>
           </mat-form-field>
 
           <mat-form-field class="password-input" appearance="outline">
-            <mat-label class="label"><mat-icon class="form-icon">lock</mat-icon> Insira sua senha</mat-label>
-            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex.: paodebatata123"  (keyup.enter)="login()" required>
+            <mat-icon  matPrefix class="form-icon">lock</mat-icon>
+            <mat-label class="label">Insira sua senha</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex.: paodebatata123" (keyup.enter)="login()" required>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
+            <mat-icon class="visibility">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
           </mat-form-field>
         </form>
 
-        <span class="row justify-content-center"><a class="forgot-pass" routerLink="/forgotpass">Esqueci minha senha!</a></span>
+        <span class="row justify-content-center"><a class="forgot-pass" routerLink="/error">Esqueci minha senha!</a></span>
       </mat-card-content>
 
       <mat-card-actions>

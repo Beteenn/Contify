@@ -1,18 +1,20 @@
-<mat-drawer-container class="content nopad nomargin" autosize>
+<mat-drawer-container class="content no-pad-and-marg nomargin" autosize>
 
-  <mat-drawer *ngIf="isLogged()" id="drawer" #drawer class="conteudo-menu" mode="side" opened>
+  <mat-drawer *ngIf="isDashboard()" id="drawer" #drawer class="dashboard mat-elevation-z4" mode="side" opened>
     <app-sidemenu></app-sidemenu>
   </mat-drawer>
 
   <mat-drawer-content>
-    <app-header *ngIf="!isLogged() && isHomeOrAbout()" class="header"></app-header>
+    <div class="header">
+      <app-header *ngIf="isHomeOrAbout()" class="header"></app-header>
 
-    <div class="conteudo nopad nomargin">
-      <router-outlet></router-outlet>
-    </div>
+      <div class="content no-pad-and-marg">
+        <router-outlet></router-outlet>
+      </div>
 
-    <div class="footer">
-      <app-footer *ngIf="isHomeOrAbout()"></app-footer>
+      <div class="footer">
+        <app-footer *ngIf="isHomeOrAbout()"></app-footer>
+      </div>
     </div>
   </mat-drawer-content>
 

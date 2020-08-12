@@ -1,17 +1,37 @@
-<mat-toolbar class="footer row justify-content-center nomargin">
-  <div class="col-1 nopad">
-    <div class="row justify-content-center nomagin">
-      <span>&lt;CODE GUYS&trade;&gt; 2020</span>
+<div class="background">
+  <div class="container">
+    <div class="feedback row">
+      <div class="col align-self-center">
+        <div class="row justify-content-center">
+          <span class="title">Fale com a gente!</span>
+        </div>
+        <div class="row justify-content-center">
+          <button mat-button routerLink="/error" class="email">Escrever e-mail</button>
+        </div>
+        <div class="row justify-content-center">
+          <span class="description">Seu feedback é importante para a melhora do nosso projeto!</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-1 nopad">
-    <div class="row justify-content-center nomagin">
-      <span>Contato</span>
+</div>
+
+<div class="container">
+  <mat-toolbar class="toolbar row justify-content-center">
+    <div class="col-2">
+      <div class="row justify-content-center">
+        <span>&lt;CODE GUYS&trade;&gt;</span>
+      </div>
     </div>
-  </div>
-  <div class="col-1 nopad">
-    <div class="row justify-content-center nomagin">
-      <span><a routerLink="/about">Sobre</a></span>
+    <div class="col-2">
+      <div class="row justify-content-center">
+        <span>Contato</span>
+      </div>
     </div>
-  </div>
-</mat-toolbar>
+    <div class="col-2">
+      <div class="row justify-content-center">
+        <span><a routerLink="/about">Sobre</a></span>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>
