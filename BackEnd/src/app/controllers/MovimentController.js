@@ -60,6 +60,10 @@ class MovimentController {
         'is_earning',
         'paid',
       ],
+      include: {
+        model: Category,
+        attributes: ['name'],
+      },
     });
 
     if (!moviment) {
@@ -182,7 +186,9 @@ class MovimentController {
       name: Yup.string(),
       description: Yup.string(),
       valor: Yup.number().positive(),
+      category_id: Yup.number().positive(),
       expires: Yup.date(),
+      is_earning: Yup.boolean(),
       paid: Yup.boolean(),
     });
 
@@ -196,11 +202,13 @@ class MovimentController {
         'name',
         'description',
         'valor',
+        'category_id',
         'paid',
         'expires',
         'is_earning',
         'user_id',
         'picture_id',
+        'paid',
       ],
     });
 
@@ -213,6 +221,11 @@ class MovimentController {
     const {
       id,
       name,
+      category_id,
+      description,
+      expires,
+      paid,
+    } = await moviment.save();
       description,
       expires,
       valor,
@@ -231,10 +244,12 @@ class MovimentController {
       description,
       expires,
       valor,
+      category_id,
       paid,
       is_earning,
       user_id,
       resultTotal,
+      paid,
     });
   }
 
