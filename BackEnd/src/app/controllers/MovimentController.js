@@ -145,10 +145,6 @@ class MovimentController {
     const formatDate = format(dateExpires, "'date' dd'/'MM'/'yyyy");
 
     if (paid === false) {
-      if (isBefore(dateExpires, new Date())) {
-        return res.status(400).json({ error: 'Past dates are not permitted' });
-      }
-
       schedule.scheduleJob(dateExpires, async function store() {
         await Notification.create({
           content: `The moviment ${name} expires today: ${formatDate}`,

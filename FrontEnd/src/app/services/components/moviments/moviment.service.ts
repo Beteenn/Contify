@@ -20,11 +20,11 @@ export class MovimentService {
   ) { }
 
   getCredit() {
-    return this.http.get(environment.apiUrl + 'moviments/earning');
+    return this.http.get(environment.apiUrl + 'result/earning');
   }
 
   getDebt() {
-    return this.http.get(environment.apiUrl + 'moviments/debt');
+    return this.http.get(environment.apiUrl + 'result/debit');
   }
 
   getMoviments(page) {
