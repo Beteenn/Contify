@@ -1,0 +1,75 @@
+div {
+  font-family: "Maven Pro";
+}
+
+h1 {
+  font-size: 40px;
+  color: #707070;
+}
+
+.title {
+  padding-bottom: 48px;
+}
+
+.dashboard {
+  padding: 56px 95px;
+}
+
+.balance-cards {
+  padding: 0px 110px;
+  margin-bottom: 30px;
+}
+
+.history-card {
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+
+.history-content {
+  padding: 0px 42px;
+}
+
+.filter {
+  border-radius: 20px;
+}
+
+.mat-card {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.buttons-filter {
+  button {
+    margin-right: 27px;
+    width: 100px;
+  }
+  padding: 24px;
+}
+
+.entrada {
+  color: #7aecb0;
+}
+
+.saida {
+  color: #ce3a3a;
+}
+:focus {
+  outline: 0 !important;
+}
+
+.icon-button {
+  width: 45px;
+  height: 45px;
+
+  mat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: #707070;
+  }
+}
+
+.refresh {
+  padding-bottom: 25px;
+}

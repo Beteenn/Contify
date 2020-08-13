@@ -5,8 +5,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotpassComponent } from './pages/forgotpass/forgotpass.component';
+import { ErrorComponent } from './pages/error/error.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgotpass', component: ForgotpassComponent },
+  { path: 'error', component: ErrorComponent },
   { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
 ];
 

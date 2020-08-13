@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="row align-items-center justify-content-center h-100">
+<div class="register">
+  <div class="row align-items-center justify-content-center h-100 nomargin">
     <mat-card class="register-card mat-elevation-z1">
       <div class="row justify-content-center">
         <img class="app-logo" src="assets/img/logos/Logo-verde.png" alt="Logo Contify">
@@ -14,20 +14,23 @@
       <mat-card-content>
         <form [formGroup]="registerForm">
           <mat-form-field class="name-input" appearance="outline">
-            <mat-label class="label"><mat-icon class="form-icon">account_circle</mat-icon> Insira seu nome</mat-label>
+            <mat-icon  matPrefix class="form-icon">account_circle</mat-icon>
+            <mat-label class="label">Insira seu nome</mat-label>
             <input matInput formControlName="name" required>
           </mat-form-field>
 
           <mat-form-field class="email-input" appearance="outline">
-            <mat-label class="label"><mat-icon class="form-icon">alternate_email</mat-icon> Insira seu e-mail</mat-label>
-            <input matInput formControlName="email" placeholder="Ex.: enrique.araujo@gmail.com" [formControl]="email" required>
+            <mat-icon matPrefix class="form-icon">alternate_email</mat-icon>
+            <mat-label class="label">Insira seu e-mail</mat-label>
+            <input matInput formControlName="email" placeholder="Ex.: enrique.araujo@gmail.com" [formControl]="email" required (change)="getErrorMessage()">
             <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field class="password-input" appearance="outline">
-            <mat-label class="label"><mat-icon class="form-icon">lock</mat-icon> Insira uma senha</mat-label>
-            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon matPrefix class="form-icon">lock</mat-icon>
+            <mat-label class="label">Insira uma senha</mat-label>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" (keyup.enter)="register()" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide">
             <mat-icon class="icon">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
           </mat-form-field>
         </form>

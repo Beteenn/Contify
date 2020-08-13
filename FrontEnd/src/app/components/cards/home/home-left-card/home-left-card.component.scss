@@ -1,0 +1,33 @@
+.background {
+  background-color: #FFFFFF;
+}
+
+.container{
+  .title {
+    text-align: left;
+    font-size: 39px;
+    color: #575757;
+  }
+
+  .description {
+    text-align: left;
+    font-size: 18px;
+    color: #707070;
+    opacity: 1;
+  }
+
+  .card {
+    width: 620px;
+    height: 300px;
+    border-radius: 20px;
+
+    img {
+      width: max-content;
+      height: max-content;
+    }
+  }
+}
+
+.height {
+  min-height: 500px;
+}

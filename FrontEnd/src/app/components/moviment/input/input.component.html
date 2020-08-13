@@ -1,59 +1,66 @@
-<div class="title row">
-  <h1 mat-dialog-title><mat-icon class="icon">trending_down</mat-icon>Nova Saída</h1>
-</div>
+<div class="col">
+  <div class="title row">
+    <h1 *ngIf="this.movimentService.movimentOption == 'credit'" mat-dialog-title><mat-icon [inline] = "true" class="credit-icon">trending_up</mat-icon>Nova Entrada</h1>
+    <h1 *ngIf="this.movimentService.movimentOption == 'debt'" mat-dialog-title><mat-icon [inline] = "true" class="debt-icon">trending_down</mat-icon>Nova Saída</h1>
+  </div>
 
-<div mat-dialog-content>
-  <form [formGroup]="expendForm">
-    <div class="row">
-      <mat-form-field class="name-input w-100" appearance="outline">
-        <mat-label class="label"> Adicione um nome</mat-label>
-        <input matInput formControlName="name" placeholder="Ex.: Conta de Luz" required>
-      </mat-form-field>
-    </div>
-
-    <div class="row">
-      <mat-form-field class="valor-input w-30" appearance="outline">
-        <mat-label class="label"><mat-icon class="icon">monetization_on</mat-icon> Adicione o valor</mat-label>
-        <input matInput formControlName="valor" placeholder="R$100,00" type="number" required>
-      </mat-form-field>
-
-      <mat-form-field class="expires-input w-30" appearance="outline">
-        <mat-label class="label"><mat-icon class="icon">insert_invitation</mat-icon> Selecione a data</mat-label>
-        <input matInput formControlName="expires" placeholder="R$100,00" type="date" required>
-      </mat-form-field>
-
-      <mat-form-field class="description-input w-30" appearance="outline">
-        <mat-label class="label"><mat-icon class="icon">label</mat-icon> Categoria</mat-label>
-        <mat-select formControlName="option">
-          <mat-option value="compras">Compras</mat-option>
-          <mat-option value="casa">Casa</mat-option>
-          <mat-option value="carro">Carro</mat-option>
-          <mat-option value="computador">Computador</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div color="warn" class="row">
-      <span>A despesa está paga?</span><mat-slide-toggle formControlName="paid" color="primary"></mat-slide-toggle>
-    </div>
-
-    <div class="row">
-      <div class="img-input col w-45" appearance="outline">
-        <mat-label class="label"><mat-icon class="icon">insert_photo</mat-icon> Imagem</mat-label>
-        <input formControlName="img" placeholder="Imagem" type="file">
+  <div mat-dialog-content>
+    <form [formGroup]="movimentForm">
+      <div class="input-row row">
+        <mat-form-field class="primary-input" appearance="outline">
+          <mat-label> Adicione um nome</mat-label>
+          <input matInput formControlName="name" placeholder="Ex.: Conta de Luz" required>
+        </mat-form-field>
       </div>
-    </div>
 
-    <div class="row">
-      <mat-form-field class="valor-input w-100" appearance="outline">
-        <mat-label class="label"><mat-icon class="icon">subject</mat-icon> Adicione uma descrição</mat-label>
-        <input matInput formControlName="description" placeholder="R$100,00" type="text">
-      </mat-form-field>
-    </div>
-  </form>
-</div>
+      <div class="input-row row justify-content-between">
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">monetization_on</mat-icon>
+          <mat-label>Adicione o valor</mat-label>
+          <input matInput formControlName="valor" placeholder="R$ 100,00" type="number" required>
+        </mat-form-field>
 
-<div mat-dialog-actions class="row justify-content-between">
-  <button mat-button mat-dialog-close class="mat-elevation-z2">Fechar</button>
-  <button mat-button (click)="addMoviment()" class="mat-elevation-z2">Adicionar</button>
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">insert_invitation</mat-icon>
+          <mat-label>Selecione a data</mat-label>
+          <input matInput formControlName="expires" type="date" required>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row row justify-content-between">
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">label</mat-icon>
+          <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category">
+              <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="secondary-input" appearance="outline">
+          <mat-icon matPrefix [inline]="true" class="icon">insert_photo</mat-icon>
+          <mat-label>Imagem</mat-label>
+          <input type="file" name="img" accept=".jpg, .jpeg, .png" (change)="onFileSelect($event)" enctype="multipart/form-data" style="display: none;">
+        </div>
+      </div>
+
+      <div class="input-row row">
+        <span *ngIf="this.movimentService.movimentOption == 'debt'">A saída já foi debitada?</span>
+        <span *ngIf="this.movimentService.movimentOption == 'credit'">A entrada já foi creditada?</span>
+        <mat-slide-toggle formControlName="paid" color="primary"></mat-slide-toggle>
+      </div>
+
+      <div class="input-row row">
+        <mat-form-field class="primary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">subject</mat-icon>
+          <mat-label>Adicione uma descrição</mat-label>
+          <input matInput formControlName="description" placeholder="Ex.: Conta paga com atraso" type="text">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="row justify-content-between">
+    <button mat-button mat-dialog-close class="mat-elevation-z2">Fechar</button>
+    <button mat-button (click)="addMoviment()" class="mat-elevation-z2">Adicionar</button>
+  </div>
 </div>

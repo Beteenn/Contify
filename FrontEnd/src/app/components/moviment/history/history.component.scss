@@ -1,0 +1,43 @@
+mat-divider {
+  padding-left: 40px;
+}
+
+p {
+  color: #797979
+}
+
+span {
+  color: #797979
+}
+
+.main-description {
+  font-size: 20px;
+}
+
+.sub-description{
+  font-size: 14px;
+}
+
+.icon-history{
+  .mat-icon{
+    height:40px !important;
+    width:40px !important;
+    font-size:40px !important;
+    &.credit {
+      color: #3ACE80;
+    }
+    &.debt {
+      color: #CE3A3A;
+    }
+  }
+  padding:0px;
+  margin-right: 23px !important;
+}
+
+.description {
+  padding:0px;
+}
+
+:focus {
+  outline: 0 !important;
+}

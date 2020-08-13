@@ -1,0 +1,38 @@
+.balance-card {
+  background-color: #fdfdfd;
+  width: 420px;
+  height: 140px;
+  border-radius: 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+
+  .balance {
+    color: #3a87ce;
+  }
+  .credit {
+    color: #3ace80;
+  }
+  .debt {
+    color: #ce3a3a;
+  }
+
+  .mat-icon {
+    position: absolute;
+    height: 95px !important;
+    width: 95px !important;
+    font-size: 95px !important;
+    left: -45px;
+    top: -20px;
+  }
+
+  .text {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 42px;
+    font-family: "Maven Pro";
+  }
+
+  .valor {
+    color: #707070;
+  }
+}
