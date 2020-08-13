@@ -1,1 +1,37 @@
-<p>dashboard works!</p>
+<div class="row nomargin align-content-center h-100">
+  <div class="col dashboard">
+    <div class="row nomargin title">
+      <h1>Geral</h1>
+    </div>
+
+    <div class="col-12 no-pad-and-marg">
+      <div class="row balance-cards justify-content-center align-content-center">
+        <app-balance cardType="balance" cardTitle="Saldo" value="{{ result }}" icon="account_balance_wallet"></app-balance>
+        <app-balance cardType="credit" cardTitle="Entradas do mês" value="{{ credit }}" icon="trending_up" style="padding: 0px 50px;"></app-balance>
+        <app-balance cardType="debt" cardTitle="Saídas do mês" value="{{ debt }}" icon="trending_down"></app-balance>
+      </div>
+    </div>
+
+    <div class="row nomargin title">
+      <h1>Histórico</h1>
+    </div>
+
+    <mat-card class="col-12 history-card no-pad-and-marg">
+      <div class="row nomargin buttons-filter">
+        <button mat-button class="filter mat-elevation-z3" (click)="getAll()">Todos</button>
+        <button mat-button class="filter entrada mat-elevation-z3" (click)="getCredits()">Entrada</button>
+        <button mat-button class="filter saida mat-elevation-z3" (click)="getDebts()">Saída</button>
+      </div>
+
+      <div class="col-12 history-content">
+        <app-history *ngFor="let moviment of moviments"></app-history>
+      </div>
+
+      <div class="d-flex justify-content-center refresh">
+        <button mat-icon-button class="icon-button" (click)="loadMore()">
+          <mat-icon [inline]="true" class="icon">history</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

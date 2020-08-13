@@ -1,0 +1,31 @@
+<div class="background row align-items-center nomargin">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <div class="row justify-content-center">
+              <span class="title">{{cardTitle}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row justify-content-center">
+              <p class="description">{{description}}</p>
+            </div>
+            <div class="row justify-content-center" *ngIf="description2">
+              <p class="description">{{description2}}</p>
+            </div>
+            <div class="row justify-content-center" *ngIf="description3">
+              <p class="description">{{description3}}</p>
+            </div>
+          </div>
+          <div class="col align-self-center" *ngIf="imagePath">
+            <img src="{{imagePath}}" alt="Card Image" class="image" style="max-width: inherit;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

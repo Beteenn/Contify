@@ -1,0 +1,22 @@
+<div class="feedback-dialog col">
+  <div class="row">
+    <h1 class="title" mat-dialog-title><mat-icon matPrefix>feedback</mat-icon>Deixe seu Feedback!</h1>
+  </div>
+
+  <form [formGroup]="feedbackForm">
+    <div mat-dialog-content>
+      <div class="row">
+        <mat-form-field class="primary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">subject</mat-icon>
+          <mat-label>Descrição</mat-label>
+          <input matInput formControlName="feedback" placeholder="Ex.: Aplicativo muito bom! Mas poderiam colocar..." type="text">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <div mat-dialog-actions class="row justify-content-between">
+    <button mat-button mat-dialog-close class="mat-elevation-z2">Fechar</button>
+    <button mat-button (click)="sendFeedback()" class="mat-elevation-z2">Enviar</button>
+  </div>
+</div>

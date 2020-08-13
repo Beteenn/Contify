@@ -37,15 +37,20 @@ export class RegisterComponent implements OnInit {
     })
   }
 
+  get f() { return this.registerForm.controls; };
+
   getErrorMessage() {
     if (this.email.hasError('required')) {
-      return 'Você deve inserir um e-mail';
+      console.log(this.email.invalid)
+      console.log("ta aqui ainda")
+      if (this.f.email.value == "") {
+        console.log("ta errado memo")
+        return 'Você deve inserir um e-mail';
+      }
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
-
-  get f() { return this.registerForm.controls; };
 
   register() {
     // Stop here if form is invalid

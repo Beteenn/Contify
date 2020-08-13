@@ -38,11 +38,12 @@ export class AuthService {
     return this.http.post(environment.apiUrl + "auth", data)
       .pipe(map(data => {
         this.loggedStatus = true;
+        let user = { user: data['user']};
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserInfoSubject.next(user);
         let token = { token: data['token']};
         localStorage.setItem('token', JSON.stringify(token));
         this.currentUserTokenSubject.next(token);
-        let user = { user: data['user']};
-        localStorage.setItem('currentUser', JSON.stringify(user));
         return token;
       }));
   }

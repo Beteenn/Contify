@@ -1,0 +1,65 @@
+<div class="col">
+  <div class="title row">
+    <mat-icon *ngIf="moviment.isEarning"></mat-icon><h1 mat-dialog-title>{{moviment.name}}</h1>
+  </div>
+
+  <div mat-dialog-content>
+    <form [formGroup]="movimentForm">
+      <div class="input-row row">
+        <mat-form-field class="primary-input" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="name" placeholder="Ex.: Conta de Luz" required>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row row justify-content-between">
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">monetization_on</mat-icon>
+          <mat-label>Valor</mat-label>
+          <input matInput formControlName="valor" placeholder="R$ 100,00" type="number" required>
+        </mat-form-field>
+
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">insert_invitation</mat-icon>
+          <mat-label>Data</mat-label>
+          <input matInput formControlName="expires" type="date" required>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row row justify-content-between">
+        <mat-form-field class="secondary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">label</mat-icon>
+          <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category">
+              <mat-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="secondary-input" appearance="outline">
+          <mat-icon matPrefix [inline]="true" class="icon">insert_photo</mat-icon>
+          <mat-label>Imagem</mat-label>
+          <input type="file" name="img" accept=".jpg, .jpeg, .png" (change)="onFileSelect($event)" enctype="multipart/form-data" style="display: none;">
+        </div>
+      </div>
+
+      <div class="input-row row">
+        <span *ngIf="this.moviment.is_earning">A entrada já foi creditada?</span>
+        <span *ngIf="!this.moviment.is_earning">A saída já foi debitada?</span>
+        <mat-slide-toggle formControlName="paid" color="primary"></mat-slide-toggle>
+      </div>
+
+      <div class="input-row row">
+        <mat-form-field class="primary-input" appearance="outline">
+          <mat-icon matPrefix class="icon">subject</mat-icon>
+          <mat-label>Descrição</mat-label>
+          <input matInput formControlName="description" placeholder="Ex.: Conta paga com atraso" type="text">
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="row justify-content-between">
+    <button mat-button mat-dialog-close class="mat-elevation-z2">Fechar</button>
+    <button mat-button (click)="updateMoviment()" class="mat-elevation-z2">Atualizar</button>
+  </div>
+</div>
