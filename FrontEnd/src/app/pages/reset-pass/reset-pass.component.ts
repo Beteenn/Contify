@@ -5,11 +5,11 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forgotpass',
-  templateUrl: './forgotpass.component.html',
-  styleUrls: ['./forgotpass.component.scss']
+  selector: 'app-reset-pass',
+  templateUrl: './reset-pass.component.html',
+  styleUrls: ['./reset-pass.component.scss']
 })
-export class ForgotpassComponent implements OnInit {
+export class ResetpassComponent implements OnInit {
 
   constructor(
     private forgotService: ForgotPassService,
@@ -17,28 +17,27 @@ export class ForgotpassComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
 
-  forgotForm: FormGroup;
+  resetForm: FormGroup;
+  hide = true;
   error = '';
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
   ngOnInit() {
-    this.forgotForm = this.formBuilder.group({
-      email: ['', Validators.required],
+    this.resetForm = this.formBuilder.group({
+      password: ['', Validators.required]
     })
   }
 
-  get f() { return this.forgotForm.controls; };
+  get f() { return this.resetForm.controls; };
 
-  forgotPass() {
-    if(this.forgotForm.invalid) {
+  resetPass() {
+    if(this.resetForm.invalid) {
       console.log('Deu ruim!');
       return;
     }
 
-    this.forgotService.forgot(this.f.email.value).pipe(first()).subscribe(
+    this.forgotService.reset(this.f.password.value).pipe(first()).subscribe(
       data => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       },
       error => {
         this.error = error;

@@ -47,6 +47,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { EditComponent } from './components/moviment/edit/edit.component';
+import { ResetpassComponent } from './pages/reset-pass/reset-pass.component';
 
 registerLocaleData(ptBr);
 
@@ -73,6 +74,7 @@ registerLocaleData(ptBr);
     ErrorComponent,
     FeedbackComponent,
     EditComponent,
+    ResetpassComponent,
   ],
   imports: [
     BrowserModule,

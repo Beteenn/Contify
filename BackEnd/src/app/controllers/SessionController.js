@@ -85,7 +85,6 @@ class SessionController {
 
   async resetPassword(req, res) {
     const schema = Yup.object().shape({
-      email: Yup.string().email().required(),
       password: Yup.string().min(6).required(),
     });
 
@@ -93,13 +92,20 @@ class SessionController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const { email, token } = req.body;
+    const { token } = req.params;
+    console.log(req.params.token);
+    console.log(token);
+    console.log(req.body.password);
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { password_reset_token: token } });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
+
+    console.log(user.email);
+    console.log(token);
+    console.log(user.password_reset_token);
 
     const { password_reset_token } = await user;
     const { password_reset_expires } = await user;
