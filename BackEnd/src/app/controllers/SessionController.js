@@ -92,23 +92,22 @@ class SessionController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const { token } = req.params;
-    console.log(req.params.token);
-    console.log(token);
-    console.log(req.body.password);
+    let { token } = req.params;
+
+    token = token.split('"').join('');
+
+    if (token === 'undefined') {
+      return res.status(401).json({ error: 'Token not provided' });
+    }
 
     const user = await User.findOne({ where: { password_reset_token: token } });
 
     if (!user) {
+      console.log('usuario não encontrado');
       return res.status(404).json({ error: 'User not found' });
     }
 
-    console.log(user.email);
-    console.log(token);
-    console.log(user.password_reset_token);
-
-    const { password_reset_token } = await user;
-    const { password_reset_expires } = await user;
+    const { password_reset_token, password_reset_expires } = await user;
 
     if (token !== password_reset_token) {
       return res.status(400).json({ error: 'Token invalid' });
@@ -123,6 +122,10 @@ class SessionController {
     }
 
     await user.update(req.body);
+    await user.update({
+      password_reset_token: null,
+      password_reset_expires: null,
+    });
 
     return res.status(200).json({ ok: 'Password updated' });
   }
