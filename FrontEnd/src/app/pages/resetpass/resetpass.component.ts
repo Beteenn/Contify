@@ -5,9 +5,9 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reset-pass',
-  templateUrl: './reset-pass.component.html',
-  styleUrls: ['./reset-pass.component.scss']
+  selector: 'app-resetpass',
+  templateUrl: './resetpass.component.html',
+  styleUrls: ['./resetpass.component.scss']
 })
 export class ResetpassComponent implements OnInit {
 

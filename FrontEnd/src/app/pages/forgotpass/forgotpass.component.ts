@@ -38,7 +38,7 @@ export class ForgotpassComponent implements OnInit {
 
     this.forgotService.forgot(this.f.email.value).pipe(first()).subscribe(
       data => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/forgotpassmessage']);
       },
       error => {
         this.error = error;

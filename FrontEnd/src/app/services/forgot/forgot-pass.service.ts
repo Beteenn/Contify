@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ForgotPassService {
-  token: string;
+  token: string = window.location.href.split("/")[4];
+
 
   constructor(
     private http: HttpClient,
@@ -27,7 +28,6 @@ export class ForgotPassService {
     const data = {
       "password" : password,
     }
-    console.log(this.token)
     return this.http.post(environment.apiUrl + "reset-password/" + this.token, data).pipe(map(data => {
       let response = { ok: data['ok'] };
       return response;

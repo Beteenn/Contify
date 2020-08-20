@@ -16,7 +16,7 @@
           <mat-form-field class="password-input" appearance="outline">
             <mat-icon  matPrefix class="form-icon">lock</mat-icon>
             <mat-label class="label">Insira sua senha</mat-label>
-            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" placeholder="Ex.: paodebatata123" (keyup.enter)="resetPass()" required>
+            <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"  (keyup.enter)="resetPass()" required>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
             <mat-icon class="visibility">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon></button>
           </mat-form-field>
@@ -25,7 +25,7 @@
 
       <mat-card-actions>
         <div class="row justify-content-center">
-          <button mat-button class="reset-button mat-elevation-z3">Definir!</button>
+          <button mat-button class="reset-button mat-elevation-z3" (click)="resetPass()">Definir!</button>
         </div>
       </mat-card-actions>
     </mat-card>
