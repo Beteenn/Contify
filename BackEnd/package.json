@@ -8,7 +8,7 @@
     "dev:debug": "nodemon --inspect src/server.js"
   },
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "crypto": "^1.0.1",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
