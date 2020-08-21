@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('moviments', {
+    return queryInterface.createTable('credit_cards', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -14,30 +14,27 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
+      company_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'credit_companies', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: false,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      valor: {
-        type: Sequelize.DOUBLE,
-        allowNull: false,
-      },
-      paid: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
       },
       expires: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      is_earning: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      close_invoice: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      limit: {
+        type: Sequelize.DOUBLE,
         allowNull: false,
       },
       created_at: {
@@ -52,6 +49,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('moviments');
+    return queryInterface.dropTable('credit_cards');
   },
 };
