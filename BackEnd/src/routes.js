@@ -22,7 +22,7 @@ const upload = multer(multerConfig);
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
 routes.post('/forgot-password', SessionController.forgotPassword);
-routes.post('/reset-password', SessionController.resetPassword);
+routes.post('/reset-password/:token', SessionController.resetPassword);
 routes.post('/session/google');
 routes.post('/auth/google');
 routes.get('/feedbacks', FeedbackController.list);

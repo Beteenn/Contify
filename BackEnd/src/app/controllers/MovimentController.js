@@ -1,11 +1,6 @@
 import * as Yup from 'yup';
-import {
-  isBefore,
-  parseISO,
-  format,
-  endOfMonth,
-  eachDayOfInterval,
-} from 'date-fns';
+
+import { parseISO, format } from 'date-fns';
 import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
 import Result from './ResultController';
@@ -287,17 +282,13 @@ class MovimentController {
     const {
       id,
       name,
+      valor,
+      is_earning,
+      user_id,
       category_id,
       description,
       expires,
       paid,
-    } = await moviment.save();
-      description,
-      expires,
-      valor,
-      paid,
-      is_earning,
-      user_id,
     } = await moviment.update(req.body);
 
     await moviment.save();
@@ -311,7 +302,6 @@ class MovimentController {
       expires,
       valor,
       category_id,
-      paid,
       is_earning,
       user_id,
       resultTotal,
@@ -329,12 +319,6 @@ class MovimentController {
 
     if (!moviment) {
       return res.status(404).json({ error: 'Moviment not found' });
-    }
-
-    if ((await req.userId) !== moviment.user_id) {
-      return res
-        .status(401)
-        .json({ error: "You don't have permission for this moviment" });
     }
 
     const resultTotal = await Result.deleteMoviment(req, moviment);
