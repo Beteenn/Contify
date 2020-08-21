@@ -1,0 +1,11 @@
+<mat-card class="col-12 balance-card align-self-center">
+  <mat-icon [ngClass]="cardType">{{icon}}</mat-icon>
+
+  <div class="row" style="padding-left: 72px; padding-bottom: 5px;">
+    <span [ngClass]="cardType" class="text">{{cardTitle}}</span>
+  </div>
+
+  <div class="row" style="padding-left: 72px;">
+    <span class="text valor">R$ {{value}}</span>
+  </div>
+</mat-card>

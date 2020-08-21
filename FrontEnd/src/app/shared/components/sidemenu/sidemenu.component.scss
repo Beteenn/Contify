@@ -1,4 +1,31 @@
-.logo-icon {
-  width: 77px;
-  height: 77px;
+.sidemenu {
+  padding: 35px 0px;
+}
+
+:focus {
+  outline: 0 !important;
+}
+
+.icon-button {
+  width: 45px;
+  height: 45px;
+
+  mat-icon{
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    color: white;
+  }
+}
+
+mat-divider {
+  border-top-color: white;
+}
+
+.logo-div {
+  margin: 0px 0px 35px;
+  .logo-icon {
+    width: 77px;
+    height: 77px;
+  }
 }

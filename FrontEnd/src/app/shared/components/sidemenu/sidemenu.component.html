@@ -1,14 +1,37 @@
-<div class="row justify-content-center nomargin">
-  <img src="assets/img/logos/Logo-branco-icon.png" alt="White logo icon" class="logo-icon">
+<div class="sidemenu row justify-content-center nomargin h-100">
+  <div class="col d-flex flex-column justify-content-between no-pad-and-marg h-100">
+    <div>
+      <div class="row justify-content-center logo-div">
+        <img src="assets/img/logos/Logo-branco-icon.png" alt="White logo icon" class="logo-icon">
+      </div>
+        <mat-divider class="card-divider"></mat-divider>
+      <div class="row justify-content-center nomargin">
+        <mat-list>
+          <mat-list-item>
+            <button mat-icon-button [matMenuTriggerFor]="movimentMenu" class="icon-button">
+              <mat-icon [inline]="true" >add_circle</mat-icon>
+            </button>
+            <mat-menu #movimentMenu="matMenu" xPosition="after" yPosition="below">
+              <button mat-menu-item value="'credit'" (click)="newMovimentCredit()">Adicionar Entrada</button>
+              <button mat-menu-item value="debt" (click)="newMovimentDebt()">Adicionar Saída</button>
+              <button mat-menu-item value="transfer" (click)="newMovimentTransfer()" disabled>Realizar Transferência</button>
+            </mat-menu>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column justify-content-center no-pad-and-marg">
+      <div class="d-flex justify-content-center" style="margin-bottom: 25px;">
+        <button mat-icon-button (click)="sendFeedback()" class="icon-button">
+          <mat-icon [inline]="true">feedback</mat-icon>
+        </button>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button mat-icon-button (click)="logout()" routerLink="/home" class="icon-button">
+          <mat-icon [inline]="true">exit_to_app</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-
-<mat-divider class="card-divider white"></mat-divider>
-
-<mat-list class="nopad">
-  <mat-list-item>
-    <button mat-button (click)="openMovimentInput()" class="mat-elevation-z2">Adicionar Movimento</button>
-  </mat-list-item>
-  <mat-list-item>
-    <button mat-button (click)="logout()" routerLink="/home" class="mat-elevation-z2">Sair</button>
-  </mat-list-item>
-</mat-list>

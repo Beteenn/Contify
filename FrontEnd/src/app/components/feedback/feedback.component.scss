@@ -1,0 +1,21 @@
+.feedback-dialog {
+  width: 420px;
+
+  .primary-input {
+    width: 100%;
+  }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #707070;
+}
+
+/* focused color */
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #3ACE80;
+}
+
+/* floating label color */
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+  color: #3ACE80;
+}

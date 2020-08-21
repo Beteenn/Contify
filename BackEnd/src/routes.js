@@ -21,6 +21,8 @@ const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
+routes.post('/forgot-password', SessionController.forgotPassword);
+routes.post('/reset-password', SessionController.resetPassword);
 routes.post('/session/google');
 routes.post('/auth/google');
 routes.get('/feedbacks', FeedbackController.list);
@@ -41,8 +43,6 @@ routes.delete('/users', UserController.delete);
 // Rotas Moviment
 routes.get('/moviments/', MovimentController.list);
 routes.get('/moviments/type', MovimentController.typeList);
-routes.get('/moviments/earning', MovimentController.earningResult);
-routes.get('/moviments/debt', MovimentController.debtResult);
 routes.get('/moviments/:id', MovimentController.index);
 routes.get('/moviments/listByMonth/:date', MovimentController.listByDate);
 routes.get(
@@ -65,6 +65,8 @@ routes.delete('/avatar', AvatarController.delete);
 
 // Rotas result
 routes.get('/result', ResultController.index);
+routes.get('/result/earning', ResultController.earningResult);
+routes.get('/result/debit', ResultController.debitResult);
 
 // Rotas Category
 routes.get('/category', CategoryController.list);

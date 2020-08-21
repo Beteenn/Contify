@@ -34,4 +34,8 @@ export class UserService {
         error: error => console.log("usuario não encontrado", error)
       });
   }
+
+  getResult() {
+    return this.http.get(environment.apiUrl + "result");
+  }
 }

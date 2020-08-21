@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "Contify"
+  "defaultProject": "Contify",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,37 @@
+<div class="row justify-content-between align-content-center nomargin">
+  <div class="col-10">
+    <div class= "row">
+      <div class="col-1 icon-history d-flex align-items-center">
+        <mat-icon *ngIf="moviment.is_earning" class="credit">trending_up</mat-icon>
+        <mat-icon *ngIf="!moviment.is_earning" class="debt">store</mat-icon>
+      </div>
+      <div class="col-10 description">
+        <div class="row nomargin">
+          <span class="main-description">{{moviment.name}}</span>
+        </div>
+        <div class="row nomargin">
+          <span class="main-description">R$ {{moviment.valor}}</span>
+        </div>
+        <div *ngIf="moviment.Category != null" class="row nomargin">
+          <span class="sub-description">{{moviment.Category.name}}</span>
+        </div>
+        <div *ngIf="!moviment.is_earning" class="row nomargin">
+          <span *ngIf="!moviment.paid" class="sub-description" style="color: red;">Despesa ainda não paga</span>
+          <span *ngIf="moviment.paid" class="sub-description">Despesa paga</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 justify-items-center">
+    <div class="row nomargin justify-content-center">
+      <p style="text-align: center;">{{moviment.expires | date: 'dd'}} de {{moviment.expires | date: 'MMMM'}} de {{moviment.expires | date: 'yyyy'}}</p>
+    </div>
+    <div class="row nomargin justify-content-center">
+      <button mat-icon-button class="icon-button" (click)="viewMoviment()"><mat-icon [inline]="true" class="icon">search</mat-icon></button>
+      <button mat-icon-button class="icon-button" (click)="deleteMoviment(moviment.id)"><mat-icon [inline]="true" class="icon">delete</mat-icon></button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!(moviment.id == moviments[moviments.length - 1].id)" class="row">
+  <mat-divider vertical style="height:72px"></mat-divider>
+</div>
