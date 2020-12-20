@@ -3,8 +3,6 @@ import * as Yup from 'yup';
 import { parseISO, format } from 'date-fns';
 import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
-import Result from './ResultController';
-import result from '../models/Result';
 import Picture from '../models/Picture';
 import Notification from '../schemas/Notification';
 import Category from '../models/Category';
@@ -218,13 +216,6 @@ class MovimentController {
     }
 
     // Changing result
-    if (paid === true) {
-      await Result.newMoviment(req);
-    }
-
-    const resultTotal = await result.findOne({
-      where: { user_id: req.userId },
-    });
 
     // returning the moviments
 
@@ -238,7 +229,6 @@ class MovimentController {
       user_id,
       category_id,
       credit_cards_id,
-      resultTotal,
     });
   }
 
@@ -277,8 +267,6 @@ class MovimentController {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
-    const resultTotal = await Result.editMoviment(req, moviment);
-
     const {
       id,
       name,
@@ -304,7 +292,6 @@ class MovimentController {
       category_id,
       is_earning,
       user_id,
-      resultTotal,
       paid,
     });
   }
@@ -321,8 +308,6 @@ class MovimentController {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
-    const resultTotal = await Result.deleteMoviment(req, moviment);
-
     await moviment.destroy(req.params.id);
 
     const picture = await Picture.findByPk(moviment.picture_id);
@@ -332,7 +317,7 @@ class MovimentController {
     }
 
     return res.json({
-      ok: `The moviment ${moviment.name} was deleted, Result: ${resultTotal.result}`,
+      ok: `The moviment ${moviment.name} was deleted`,
     });
   }
 }

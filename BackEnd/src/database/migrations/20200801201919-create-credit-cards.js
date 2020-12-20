@@ -2,20 +2,20 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('credit_cards', {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
       },
       company_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         references: { model: 'credit_companies', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',

@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 import User from '../models/User';
-import Result from '../models/Result';
 import Avatar from '../models/Avatar';
 import Notification from '../schemas/Notification';
 
@@ -46,8 +45,6 @@ class UserController {
     }
 
     const { id, name } = await User.create(req.body);
-
-    await Result.create({ user_id: id });
 
     await Queue.add(WellcomeMail.key, {
       name,

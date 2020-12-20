@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('users', 'avatar_id', {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       references: { model: 'avatars', key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',

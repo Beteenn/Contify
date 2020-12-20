@@ -2,7 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('categories', {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allownull: false,
         primaryKey: true,
         autoIncrement: true,
