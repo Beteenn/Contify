@@ -10,14 +10,12 @@ import CreditCard from '../app/models/CreditCard';
 import CreditCompany from '../app/models/CreditCompany';
 
 import databaseConfig from '../config/database';
-import Result from '../app/models/Result';
 import Category from '../app/models/Category';
 
 const models = [
   User,
   Moviment,
   Picture,
-  Result,
   Avatar,
   Category,
   Feedback,

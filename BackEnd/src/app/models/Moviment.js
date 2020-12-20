@@ -8,9 +8,10 @@ class Moviment extends Model {
         description: Sequelize.STRING,
         valor: Sequelize.DOUBLE,
         expires: Sequelize.DATE,
-        category_id: Sequelize.INTEGER,
+        category_id: Sequelize.BIGINT,
         is_earning: Sequelize.BOOLEAN,
         paid: Sequelize.BOOLEAN,
+        result: Sequelize.DOUBLE,
       },
       {
         sequelize,
