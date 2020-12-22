@@ -58,7 +58,7 @@ class ResultController {
     return currentUser.result;
   }
 
-  async deleteMoviment(moviment, req) {
+  async deleteMoviment(req, moviment) {
     const currentUser = await User.findByPk(req.userId);
 
     if (moviment.is_earning) {
