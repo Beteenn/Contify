@@ -7,7 +7,6 @@ import UserController from './app/controllers/UserController';
 import MovimentController from './app/controllers/MovimentController';
 import PictureController from './app/controllers/PictureController';
 import FeedbackController from './app/controllers/FeedbackController';
-import ResultController from './app/controllers/ResultController';
 import AvatarController from './app/controllers/AvatarController';
 import CategoryController from './app/controllers/CategoryController';
 import NotificationController from './app/controllers/NotificationController';
@@ -62,11 +61,6 @@ routes.delete('/picture/:id', PictureController.delete);
 routes.post('/avatar', upload.single('file'), AvatarController.store);
 routes.put('/avatar', upload.single('file'), AvatarController.update);
 routes.delete('/avatar', AvatarController.delete);
-
-// Rotas result
-routes.get('/result', ResultController.index);
-routes.get('/result/earning', ResultController.earningResult);
-routes.get('/result/debit', ResultController.debitResult);
 
 // Rotas Category
 routes.get('/category', CategoryController.list);

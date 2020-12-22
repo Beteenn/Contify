@@ -1,12 +1,13 @@
 import * as Yup from 'yup';
 
-import { parseISO, format } from 'date-fns';
+import { parseISO, format, eachDayOfInterval, endOfMonth } from 'date-fns';
 import schedule from 'node-schedule';
 import Moviment from '../models/Moviment';
 import Picture from '../models/Picture';
 import Notification from '../schemas/Notification';
 import Category from '../models/Category';
 import CreditCard from '../models/CreditCard';
+import ResultController from './ResultController';
 
 class MovimentController {
   async list(req, res) {
@@ -187,6 +188,14 @@ class MovimentController {
       }
     }
 
+    let result;
+
+    if (is_earning) {
+      result = await ResultController.insertEarning(req);
+    } else {
+      result = await ResultController.insertDebit(req);
+    }
+
     const { id } = await Moviment.create({
       name,
       description,
@@ -197,6 +206,7 @@ class MovimentController {
       paid,
       category_id,
       credit_cards_id,
+      result,
     });
 
     /**
@@ -215,8 +225,6 @@ class MovimentController {
       });
     }
 
-    // Changing result
-
     // returning the moviments
 
     return res.json({
@@ -229,6 +237,7 @@ class MovimentController {
       user_id,
       category_id,
       credit_cards_id,
+      result,
     });
   }
 
@@ -260,6 +269,7 @@ class MovimentController {
         'user_id',
         'picture_id',
         'paid',
+        'result',
       ],
     });
 
@@ -267,17 +277,42 @@ class MovimentController {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
+    let { result } = moviment;
+
     const {
       id,
       name,
+      description,
+      category_id,
+      paid,
+      expires,
+      user_id,
+      picture_id,
+      is_earning,
       valor,
+    } = req.body;
+
+    // verifying if value or type is different
+    if (
+      is_earning !== moviment.is_earning ||
+      valor !== moviment.valor ||
+      moviment.paid !== paid
+    ) {
+      result = await ResultController.editMoviment(req, moviment);
+    }
+    await moviment.update({
+      id,
+      name,
+      description,
+      valor,
+      category_id,
+      paid,
+      expires,
       is_earning,
       user_id,
-      category_id,
-      description,
-      expires,
-      paid,
-    } = await moviment.update(req.body);
+      picture_id,
+      result,
+    });
 
     await moviment.save();
 
@@ -293,6 +328,7 @@ class MovimentController {
       is_earning,
       user_id,
       paid,
+      result,
     });
   }
 
@@ -316,8 +352,12 @@ class MovimentController {
       await picture.destroy();
     }
 
+    if (moviment.paid || moviment.is_earning) {
+      await ResultController.deleteMoviment(req, moviment);
+    }
+
     return res.json({
-      ok: `The moviment ${moviment.name} was deleted`,
+      ok: `The moviment "${moviment.name}" was deleted.`,
     });
   }
 }
