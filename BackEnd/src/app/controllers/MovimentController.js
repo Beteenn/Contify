@@ -27,6 +27,7 @@ class MovimentController {
         'expires',
         'is_earning',
         'paid',
+        'result',
       ],
       include: {
         model: Category,
@@ -60,6 +61,7 @@ class MovimentController {
         'expires',
         'is_earning',
         'paid',
+        'result',
       ],
       include: {
         model: Category,
@@ -87,6 +89,7 @@ class MovimentController {
         'expires',
         'is_earning',
         'paid',
+        'result',
       ],
     });
 
@@ -141,6 +144,39 @@ class MovimentController {
     }
 
     return res.json(moviments);
+  }
+
+  async listUnpaidMoviments(req, res) {
+    const unpaidMoviments = await Moviment.findAll({
+      where: {
+        user_id: req.userId,
+        paid: false,
+        is_earning: false,
+      },
+      attributes: [
+        'id',
+        'name',
+        'description',
+        'valor',
+        'category_id',
+        'expires',
+        'is_earning',
+        'paid',
+        'result',
+      ],
+      include: {
+        model: Category,
+        attributes: ['name'],
+      },
+    });
+
+    if (!unpaidMoviments) {
+      return res
+        .status(400)
+        .json({ error: 'You do not have unpaid moviments' });
+    }
+
+    return res.json(unpaidMoviments);
   }
 
   async store(req, res) {
@@ -330,6 +366,34 @@ class MovimentController {
       paid,
       result,
     });
+  }
+
+  async payMoviment(req, res) {
+    const { id } = req.params;
+    console.log(id);
+    const { user_id } = req.userId;
+
+    const moviment = await Moviment.findByPk(id);
+
+    if (!moviment) {
+      return res.status(404).json({ error: 'this moviment does not exists' });
+    }
+
+    if (moviment.userId !== user_id) {
+      return res
+        .status(400)
+        .json({ error: 'You do not have permission for this moviment' });
+    }
+
+    if (moviment.paid) {
+      return res.status(400).json({ error: 'This moviment is already paid ' });
+    }
+
+    moviment.paid = true;
+
+    await moviment.save();
+
+    return res.json({ ok: `Moviment ${id} has been paid` });
   }
 
   async delete(req, res) {

@@ -42,14 +42,19 @@ routes.delete('/users', UserController.delete);
 // Rotas Moviment
 routes.get('/moviments/', MovimentController.list);
 routes.get('/moviments/type', MovimentController.typeList);
-routes.get('/moviments/:id', MovimentController.index);
+routes.get('/moviments/listById/:id', MovimentController.index);
 routes.get('/moviments/listByMonth/:date', MovimentController.listByDate);
 routes.get(
   '/moviments/listByCreditCard/:id',
   MovimentController.listByCreditCard
 );
+routes.get(
+  '/moviments/listUnpaidMoviments',
+  MovimentController.listUnpaidMoviments
+);
 routes.post('/moviments', MovimentController.store);
-routes.put('/moviments/:id', MovimentController.update);
+routes.put('/moviments/updateMoviment/:id', MovimentController.update);
+routes.put('/moviments/payMoviment/:id', MovimentController.payMoviment);
 routes.delete('/moviments/:id', MovimentController.delete);
 
 // Rotas moviment File
