@@ -63,7 +63,7 @@ class ResultController {
 
     if (moviment.is_earning) {
       currentUser.result -= moviment.valor;
-    } else {
+    } else if (moviment.paid) {
       currentUser.result += moviment.valor;
     }
 

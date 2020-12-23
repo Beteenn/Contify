@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Category from '../models/Category';
-import Moviment from '../models/Moviment';
 
 class CategoryController {
   async list(req, res) {
     const category = await Category.findAll({
+      where: {
+        [Op.or]: [{ user_id: req.userId }, { user_id: null }],
+      },
       attributes: ['id', 'name'],
       order: ['id'],
     });
@@ -19,19 +22,18 @@ class CategoryController {
   }
 
   async index(req, res) {
-    const categorys = Moviment.findAll({
+    const category = await Category.findOne({
       where: {
-        category_id: req.params.id,
+        id: req.params.id,
+        [Op.or]: [{ user_id: req.userId }, { user_id: null }],
       },
     });
 
-    if (categorys) {
-      return res
-        .status(404)
-        .json({ error: "You don't have moviments with this category" });
+    if (!category) {
+      return res.status(400).json({ error: 'Category does not exists' });
     }
 
-    return res.json(categorys);
+    return res.json(category);
   }
 
   async store(req, res) {
@@ -72,6 +74,12 @@ class CategoryController {
       return res.status(404).json({ error: 'This category does not exists' });
     }
 
+    if (category.user_id !== req.userId) {
+      return res
+        .status(400)
+        .json({ error: 'You do not have permission for this category' });
+    }
+
     const { name } = req.body;
 
     const checkCategoryExists = await Category.findOne({ where: { name } });
@@ -90,6 +98,12 @@ class CategoryController {
 
     if (!category) {
       return res.status(404).json({ error: 'This category does not exists ' });
+    }
+
+    if (category.user_id !== req.userId) {
+      return res
+        .status(400)
+        .json({ error: 'You do not have permission for this category' });
     }
 
     await category.destroy();
