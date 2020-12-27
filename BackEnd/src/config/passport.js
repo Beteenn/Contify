@@ -43,7 +43,7 @@ passport.use(
 
         return done(null, userExists);
       } catch (error) {
-        done(error, false, error.message);
+        return done(error, false, error.message);
       }
     }
   )
