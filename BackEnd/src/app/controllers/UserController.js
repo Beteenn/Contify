@@ -14,7 +14,7 @@ class UserController {
   }
 
   async index(req, res) {
-    const user = await User.findByPk(req.params.id, {
+    const user = await User.findByPk(req.query.userId, {
       attributes: ['id', 'name', 'email'],
     });
 
@@ -80,7 +80,7 @@ class UserController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const user = await User.findByPk(req.params.id, {
+    const user = await User.findByPk(req.query.userId, {
       attributes: ['id', 'name', 'email', 'password_hash'],
     });
 

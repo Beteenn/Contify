@@ -40,7 +40,7 @@ class CreditCompanyController {
     if (!(await schema.isValid(req.body)))
       return res.status(400).json({ error: 'Validation Fails' });
 
-    const company = await CreditCompany.findByPk(req.params.id);
+    const company = await CreditCompany.findByPk(req.query.companyId);
 
     const { name } = req.body;
 
@@ -55,7 +55,7 @@ class CreditCompanyController {
   }
 
   async delete(req, res) {
-    const company = await CreditCompany.findByPk(req.params.id);
+    const company = await CreditCompany.findByPk(req.query.companyId);
 
     if (!company)
       return res.status(404).json({ error: 'This company does not exists' });

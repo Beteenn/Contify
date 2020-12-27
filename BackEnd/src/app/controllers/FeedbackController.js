@@ -49,7 +49,7 @@ class FeedbackController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const feedback = await Feedback.findByPk(req.params.id, {
+    const feedback = await Feedback.findByPk(req.query.feedbackId, {
       attributes: ['id', 'user_email', 'description', 'read'],
     });
 
@@ -59,7 +59,7 @@ class FeedbackController {
   }
 
   async delete(req, res) {
-    const feedback = await Feedback.findByPk(req.params.id);
+    const feedback = await Feedback.findByPk(req.query.feedbackId);
 
     if (!feedback) {
       return res.status(404).json({ error: 'Feedback not found' });
