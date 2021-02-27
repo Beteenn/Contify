@@ -370,7 +370,6 @@ class MovimentController {
 
   async payMoviment(req, res) {
     const { id } = req.params;
-    console.log(id);
     const { user_id } = req.userId;
 
     const moviment = await Moviment.findByPk(id);
