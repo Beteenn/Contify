@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 const String h1 = 'Maven-Medium';
 const String h2 = 'Maven-Regular';
 // const p1
