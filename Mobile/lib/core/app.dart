@@ -1,4 +1,5 @@
 import 'package:contify/app/view/authentication/login_page.dart';
+import 'package:contify/app/view/authentication/register_page.dart';
 import 'package:contify/core/values/color.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage()
+      home: RegisterPage()
     );
   }
 }
