@@ -79,7 +79,7 @@ class MovimentController {
   }
 
   async index(req, res) {
-    const moviment = await Moviment.findByPk(req.params.id, {
+    const moviment = await Moviment.findByPk(req.query.movimentId, {
       where: { user_id: req.userId },
       attributes: [
         'name',
@@ -101,7 +101,7 @@ class MovimentController {
   }
 
   async listByDate(req, res) {
-    const { date } = req.params;
+    const { date } = req.query;
     const daysOfMonth = eachDayOfInterval({
       start: parseISO(date),
       end: endOfMonth(parseISO(date)),
@@ -125,7 +125,7 @@ class MovimentController {
   }
 
   async listByCreditCard(req, res) {
-    const creditCard = await CreditCard.findByPk(req.params.id);
+    const creditCard = await CreditCard.findByPk(req.query.cardId);
 
     if (!creditCard) {
       return res
@@ -292,7 +292,7 @@ class MovimentController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    const moviment = await Moviment.findByPk(req.params.id, {
+    const moviment = await Moviment.findByPk(req.query.movimentId, {
       attributes: [
         'id',
         'name',
@@ -399,7 +399,7 @@ class MovimentController {
     const moviment = await Moviment.findOne({
       where: {
         user_id: req.userId,
-        id: req.params.id,
+        id: req.query.movimentId,
       },
     });
 
@@ -407,7 +407,7 @@ class MovimentController {
       return res.status(404).json({ error: 'Moviment not found' });
     }
 
-    await moviment.destroy(req.params.id);
+    await moviment.destroy(req.query.movimentId);
 
     const picture = await Picture.findByPk(moviment.picture_id);
 

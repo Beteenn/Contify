@@ -92,7 +92,7 @@ class SessionController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    let { token } = req.params;
+    let { token } = req.query;
 
     token = token.split('"').join('');
 

@@ -15,7 +15,7 @@ class PictureController {
   async update(req, res) {
     const { originalname: name, filename: path } = req.file;
 
-    const checkPictureExists = await Picture.findByPk(req.params.id);
+    const checkPictureExists = await Picture.findByPk(req.query.pictureId);
 
     if ((await checkPictureExists) === null) {
       return res.status(404).json({ error: 'This picture dont exists' });
@@ -30,7 +30,7 @@ class PictureController {
   }
 
   async delete(req, res) {
-    const picture = await Picture.findByPk(req.params.id);
+    const picture = await Picture.findByPk(req.query.pictureId);
 
     if (!picture) {
       return res.status(404).json({ error: 'File not found' });
