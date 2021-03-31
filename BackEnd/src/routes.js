@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
+import passport from 'passport';
+import passportConfig from './config/passport';
 import multerConfig from './config/multer';
 
 import SessionController from './app/controllers/SessionController';
@@ -17,13 +19,18 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 const upload = multer(multerConfig);
+const passportGoogle = passport.authenticate('googleToken', { session: false });
 
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
 routes.post('/forgot-password', SessionController.forgotPassword);
 routes.post('/reset-password/:token', SessionController.resetPassword);
 routes.post('/session/google');
-routes.post('/auth/google');
+routes.post(
+  '/auth/google',
+  passportGoogle,
+  SessionController.storeGoogleSession
+);
 routes.get('/feedbacks', FeedbackController.list);
 routes.put('/feedbacks/:id', FeedbackController.update);
 routes.delete('/feedbacks/:id', FeedbackController.delete);
