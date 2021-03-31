@@ -138,6 +138,30 @@ class UserController {
 
     return res.json({ ok: `The user ${user.name} was deleted` });
   }
+
+  async storeGoogleUser(profile) {
+    const newUser = {
+      id_google: profile.id,
+      name: profile.displayName,
+      email: profile.emails[0].value,
+    };
+
+    const { id, id_google, name, email } = await User.create(newUser);
+
+    await Queue.add(WellcomeMail.key, {
+      name,
+      email,
+    });
+
+    // Create notification of welcome for new users
+
+    await Notification.create({
+      content: `Seja bem vindo, ${name}. Esperamos que nossa plataforma o auxilie em sua vida fincanceira.`,
+      user: id,
+    });
+
+    return { id, id_google, name, email };
+  }
 }
 
 export default new UserController();
