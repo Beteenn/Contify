@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
 import routes from './routes';
 
 import './database';
@@ -11,6 +12,7 @@ class App {
 
     this.middleware();
     this.routes();
+    this.passport();
   }
 
   middleware() {
@@ -20,6 +22,10 @@ class App {
 
   routes() {
     this.server.use(routes);
+  }
+
+  passport() {
+    this.server.use(passport.initialize());
   }
 }
 

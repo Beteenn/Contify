@@ -62,7 +62,7 @@ class CreditCardController {
       return res.status(400).json('Validation fails');
     }
 
-    const creditCard = await CreditCard.findByPk(req.params.id);
+    const creditCard = await CreditCard.findByPk(req.query.cardId);
 
     if (!creditCard) {
       return res
@@ -84,7 +84,7 @@ class CreditCardController {
   }
 
   async delete(req, res) {
-    const creditCard = await CreditCard.findByPk(req.params.id);
+    const creditCard = await CreditCard.findByPk(req.query.cardId);
 
     if (creditCard.user_id !== req.userId) {
       return res

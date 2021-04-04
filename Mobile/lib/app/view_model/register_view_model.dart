@@ -1,5 +1,5 @@
 import 'package:contify/app/repository/auth_repository.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'register_view_model.g.dart';
@@ -15,16 +15,16 @@ abstract class RegisterViewModelBase with Store {
   final TextEditingController confirmPasswordController = TextEditingController();
 
   @observable
-  bool nameIsValid;
+  bool nameIsValid = false;
 
   @observable
-  bool emailIsValid;
+  bool emailIsValid = false;
 
   @observable
-  bool passwordIsValid;
+  bool passwordIsValid = false;
 
   @observable
-  bool confirmPassIsValid;
+  bool confirmPassIsValid = false;
 
   @observable
   String name;
@@ -67,6 +67,22 @@ abstract class RegisterViewModelBase with Store {
     nameIsValid = true;
 
     print(nameIsValid);
+  }
+
+  @observable
+  bool passIsHidden = true;
+
+  @action
+  void changePassHidden() {
+    passIsHidden = !passIsHidden;
+  }
+
+  @observable
+  bool confirmPassIsHidden = true;
+
+  @action
+  void changeConfirmPassHidden() {
+    confirmPassIsHidden = !confirmPassIsHidden;
   }
 
   @action

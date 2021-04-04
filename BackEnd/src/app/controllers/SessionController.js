@@ -92,7 +92,7 @@ class SessionController {
       return res.status(400).json({ error: 'Validation Fails' });
     }
 
-    let { token } = req.params;
+    let { token } = req.query;
 
     token = token.split('"').join('');
 
@@ -128,6 +128,29 @@ class SessionController {
     });
 
     return res.status(200).json({ ok: 'Password updated' });
+  }
+
+  async storeGoogleSession(req, res) {
+    console.log('Chegamos na session');
+
+    console.log('Tentando pegar req: ', req.user);
+
+    const { id_google } = req.user;
+
+    const user = await User.findOne({ where: { id_google } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { id, name, email } = user;
+
+    return res.json({
+      user: { id, name, email },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
+    });
   }
 }
 

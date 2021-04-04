@@ -24,7 +24,7 @@ class CategoryController {
   async index(req, res) {
     const category = await Category.findOne({
       where: {
-        id: req.params.id,
+        category_id: req.query.categoryId,
         [Op.or]: [{ user_id: req.userId }, { user_id: null }],
       },
     });
@@ -68,7 +68,7 @@ class CategoryController {
       return res.status(400).json({ error: 'Validations fails' });
     }
 
-    const category = await Category.findByPk(req.params.id);
+    const category = await Category.findByPk(req.query.movimentId);
 
     if (!category) {
       return res.status(404).json({ error: 'This category does not exists' });
@@ -94,7 +94,7 @@ class CategoryController {
   }
 
   async delete(req, res) {
-    const category = await Category.findByPk(req.params.id);
+    const category = await Category.findByPk(req.query.movimentId);
 
     if (!category) {
       return res.status(404).json({ error: 'This category does not exists ' });
