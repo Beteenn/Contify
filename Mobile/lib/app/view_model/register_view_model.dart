@@ -1,4 +1,4 @@
-import 'package:contify/app/repository/auth_repository.dart';
+import 'package:contify/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,7 +7,7 @@ part 'register_view_model.g.dart';
 class RegisterViewModel = RegisterViewModelBase with _$RegisterViewModel;
 
 abstract class RegisterViewModelBase with Store {
-  final _authRepository = AuthRepository();
+  final _authService = AuthService();
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -135,8 +135,8 @@ abstract class RegisterViewModelBase with Store {
   }
 
   Future<dynamic> register() async {
-    await _authRepository
+    await _authService
         .register(email, password, name)
-        .then((value) => _authRepository.login(email, password), onError: (e) => throw (e));
+        .then((value) => _authService.login(email, password), onError: (e) => throw (e));
   }
 }
