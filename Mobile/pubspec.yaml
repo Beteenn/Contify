@@ -27,6 +27,7 @@ dependencies:
   dio:
   mobx:
   flutter_mobx:
+  splashscreen:
 
 dev_dependencies:
   mobx_codegen:
