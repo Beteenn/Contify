@@ -27,7 +27,9 @@ routes.post('/auth/google');
 routes.get('/feedbacks/listFeedbacks', FeedbackController.list);
 routes.put('/feedbacks/editFeedbacks', FeedbackController.update);
 routes.delete('/feedbacks/deleteFeedbacks', FeedbackController.delete);
+
 routes.post('users/addUser', UserController.store);
+
 // Rotas que necessitam de login
 routes.use(authMiddleware);
 
