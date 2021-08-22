@@ -20,76 +20,81 @@ const upload = multer(multerConfig);
 
 // Rotas que não necessitam login
 routes.post('/auth', SessionController.store);
-routes.post('/forgot-password', SessionController.forgotPassword);
-routes.post('/reset-password/:token', SessionController.resetPassword);
+routes.post('/forgotPassword', SessionController.forgotPassword);
+routes.post('/resetPassword', SessionController.resetPassword);
 routes.post('/session/google');
 routes.post('/auth/google');
-routes.get('/feedbacks', FeedbackController.list);
-routes.put('/feedbacks/:id', FeedbackController.update);
-routes.delete('/feedbacks/:id', FeedbackController.delete);
-
-routes.post('/users', UserController.store);
-
+routes.get('/feedbacks/listFeedbacks', FeedbackController.list);
+routes.put('/feedbacks/editFeedbacks', FeedbackController.update);
+routes.delete('/feedbacks/deleteFeedbacks', FeedbackController.delete);
+routes.post('users/addUser', UserController.store);
 // Rotas que necessitam de login
 routes.use(authMiddleware);
 
 // Rotas User
-routes.get('/users', UserController.list);
-routes.get('/users/:id', UserController.index);
-routes.put('/users/:id', UserController.update);
-routes.delete('/users', UserController.delete);
+routes.get('/users/listUsers', UserController.list);
+routes.get('/users/getUserbyId', UserController.index);
+routes.put('/users/editUser', UserController.update);
+routes.delete('/users/deleteUser', UserController.delete);
 
 // Rotas Moviment
-routes.get('/moviments/', MovimentController.list);
-routes.get('/moviments/type', MovimentController.typeList);
-routes.get('/moviments/listById/:id', MovimentController.index);
-routes.get('/moviments/listByMonth/:date', MovimentController.listByDate);
-routes.get(
-  '/moviments/listByCreditCard/:id',
-  MovimentController.listByCreditCard
-);
-routes.get(
-  '/moviments/listUnpaidMoviments',
-  MovimentController.listUnpaidMoviments
-);
-routes.post('/moviments', MovimentController.store);
-routes.put('/moviments/updateMoviment/:id', MovimentController.update);
-routes.put('/moviments/payMoviment/:id', MovimentController.payMoviment);
-routes.delete('/moviments/:id', MovimentController.delete);
+routes.get('/moviments/listMoviments', MovimentController.list);
+routes.get('/moviments/listByType', MovimentController.typeList);
+routes.get('/moviments/getMovimentById', MovimentController.index);
+routes.get('/moviments/listByMonth', MovimentController.listByDate);
+routes.get('/moviments/listByCreditCard', MovimentController.listByCreditCard);
+routes.post('/moviments/addMoviment', MovimentController.store);
+routes.put('/moviments/editMoviment', MovimentController.update);
+routes.delete('/moviments/deleteMoviment', MovimentController.delete);
 
 // Rotas moviment File
-routes.post('/picture', upload.single('file'), PictureController.store);
-routes.put('/picture/:id', upload.single('file'), PictureController.update);
-routes.delete('/picture/:id', PictureController.delete);
+routes.post(
+  '/picture/addPicture',
+  upload.single('file'),
+  PictureController.store
+);
+routes.put(
+  '/picture/editPicture',
+  upload.single('file'),
+  PictureController.update
+);
+routes.delete('/picture/deletePicture', PictureController.delete);
 
 // Rotas avatar
-routes.post('/avatar', upload.single('file'), AvatarController.store);
-routes.put('/avatar', upload.single('file'), AvatarController.update);
-routes.delete('/avatar', AvatarController.delete);
+routes.post('/avatar/addAvatar', upload.single('file'), AvatarController.store);
+routes.put(
+  '/avatar/editAvatar',
+  upload.single('file'),
+  AvatarController.update
+);
+routes.delete('/avatar/deleteAvatar', AvatarController.delete);
 
 // Rotas Category
-routes.get('/category', CategoryController.list);
-routes.get('/category/:id', CategoryController.index);
-routes.post('/category', CategoryController.store);
-routes.put('/category/:id', CategoryController.update);
-routes.delete('/category/:id', CategoryController.delete);
+routes.get('/category/listCategories', CategoryController.list);
+routes.get('/category/getCategoriesById', CategoryController.index);
+routes.post('/category/addCategory', CategoryController.store);
+routes.put('/category/editCategory', CategoryController.update);
+routes.delete('/category/deleteCategory', CategoryController.delete);
 
 // Rotas feedback
-routes.post('/feedbacks', FeedbackController.store);
+routes.post('/feedbacks/addFeedbacks', FeedbackController.store);
 
 // Rotas Notification
-routes.get('/notification', NotificationController.index);
+routes.get('/notification/listNotification', NotificationController.list);
 
 // Rotas Credit cards
-routes.get('/creditCard', CreditCardController.list);
-routes.post('/creditCard', CreditCardController.store);
-routes.put('/creditCard/:id', CreditCardController.update);
-routes.delete('/creditCard/:id', CreditCardController.delete);
+routes.get('/creditCard/listCreditCards', CreditCardController.list);
+routes.post('/creditCard/addCreditCards', CreditCardController.store);
+routes.put('/creditCard/editCreditCards', CreditCardController.update);
+routes.delete('/creditCard/deleteCreditCards', CreditCardController.delete);
 
 // Rotas Credit companys
-routes.get('/creditCompany', CreditCompanyController.list);
-routes.post('/creditCompany', CreditCompanyController.store);
-routes.put('/creditCompany/:id', CreditCompanyController.update);
-routes.delete('/creditCompany/:id', CreditCompanyController.delete);
+routes.get('/creditCompany/listCreditCompany', CreditCompanyController.list);
+routes.post('/creditCompany/addCreditCompany', CreditCompanyController.store);
+routes.put('/creditCompany/editCreditCompany', CreditCompanyController.update);
+routes.delete(
+  '/creditCompany/deleteCreditCompany',
+  CreditCompanyController.delete
+);
 
 export default routes;

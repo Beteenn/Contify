@@ -1,7 +1,7 @@
 import Notification from '../schemas/Notification';
 
 class NotificationController {
-  async index(req, res) {
+  async list(req, res) {
     const notifications = await Notification.find({
       user: req.userId,
     })

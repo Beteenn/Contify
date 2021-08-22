@@ -1,0 +1,1328 @@
+{
+	"info": {
+		"_postman_id": "b5cc9553-ebac-41c0-8477-e6488e5dbf10",
+		"name": "Contify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\":\"gilbertoaraujo229@gmail.com\",\r\n\t\"password\":\"dahora12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\":\"gilbertoaraujo229@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/forgotPassword",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"forgotPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetPassword",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\":\"gilbertoaraujo229@gmail.com\",\r\n\t\"password\":\"dahora12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/resetPassword?token=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"resetPassword"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/listUsers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"listUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/getUserbyId?userId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"getUserbyId"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"jorge\",\r\n\t\"email\":\"jorge@email.com\",\r\n\t\"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/addUser",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"addUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"claudio\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/editUser?userId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"editUser"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/deleteUser",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"deleteUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moviment",
+			"item": [
+				{
+					"name": "TypeList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/listByType/?page=1&type=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"listByType",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "type",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/listMoviments?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"listMoviments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/getMovimentById?movimentId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"getMovimentById"
+							],
+							"query": [
+								{
+									"key": "movimentId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListByDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/listByMonth?date=2020-09",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"listByMonth"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2020-09"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List By Credit Cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/listByCreditCard?cardId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"listByCreditCard"
+							],
+							"query": [
+								{
+									"key": "cardId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"teste de date6\",\r\n\t\"description\":\"das top\",\r\n\t\"valor\":10,\r\n\t\"expires\":\"2020-09-16\",\r\n\t\"is_earning\": true,\r\n\t\"paid\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/moviments/addMoviment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"addMoviment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"editado\",\r\n\t\"description\":\"nem sempre da bom\",\r\n\t\"valor\": 10,\r\n\t\"is_earning\": false,\r\n    \"paid\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/moviments/editMoviment?movimentId=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"editMoviment"
+							],
+							"query": [
+								{
+									"key": "movimentId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moviments/deleteMoviment?movimentId=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moviments",
+								"deleteMoviment"
+							],
+							"query": [
+								{
+									"key": "movimentId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Picture",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/gilbe/Pictures/profilepicturev2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/picture/addPicture",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"picture",
+								"addPicture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/gilbe/Pictures/905377_779829568709168_1670472199_o.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/picture/editPicture?pictureId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"picture",
+								"editPicture"
+							],
+							"query": [
+								{
+									"key": "pictureId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/picture/deletePicture?pictureId=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"picture",
+								"deletePicture"
+							],
+							"query": [
+								{
+									"key": "pictureId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Avatar",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/avatar/addAvatar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"avatar",
+								"addAvatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/avatar/editAvatar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"avatar",
+								"editAvatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/avatar/deleteAvatar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"avatar",
+								"deleteAvatar"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Feedback",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/feedbacks/listFeedbacks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"feedbacks",
+								"listFeedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"criando um feedback\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/feedbacks/addFeedbacks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"feedbacks",
+								"addFeedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"read\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/feedbacks/editFeedbacks?feedbackId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"feedbacks",
+								"editFeedbacks"
+							],
+							"query": [
+								{
+									"key": "feedbackId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/feedbacks/deleteFeedbacks?feedbackId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"feedbacks",
+								"deleteFeedbacks"
+							],
+							"query": [
+								{
+									"key": "feedbackId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notification/listNotification",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notification",
+								"listNotification"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category/listCategories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"listCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category/getCategoriesById?categoryId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"getCategoriesById"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"compras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/addCategory",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"addCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"compra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/category/editCategory?movimentId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"editCategory"
+							],
+							"query": [
+								{
+									"key": "movimentId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category/deleteCategory?movimentId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"deleteCategory"
+							],
+							"query": [
+								{
+									"key": "movimentId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Companies",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creditCompany/listCreditCompany",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCompany",
+								"listCreditCompany"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bradesco\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creditCompany/addCreditCompany",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCompany",
+								"addCreditCompany"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nubank\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creditCompany/editCreditCompany?companyId=78",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCompany",
+								"editCreditCompany"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "78"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creditCompany/deleteCreditCompany?companyId=78",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCompany",
+								"deleteCreditCompany"
+							],
+							"query": [
+								{
+									"key": "companyId",
+									"value": "78"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Credit card",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creditCard/listCreditCards",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCard",
+								"listCreditCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"cartão Santander\",\r\n    \"expires\": \"2022-07-20\",\r\n    \"close_invoice\": \"2020-08-19\",\r\n    \"limit\": \"500\",\r\n    \"company_id\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creditCard/addCreditCards",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCard",
+								"addCreditCards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "   { \r\n    \"name\": \"cartão de compras\",\r\n    \"expires\": \"2022-07-20\",\r\n    \"close_invoice\": \"2020-08-19\",\r\n    \"limit\": \"500\",\r\n    \"company_id\": 9\r\n   }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/creditCard/editCreditCards?cardId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCard",
+								"editCreditCards"
+							],
+							"query": [
+								{
+									"key": "cardId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/creditCard/deleteCreditCards?cardId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"creditCard",
+								"deleteCreditCards"
+							],
+							"query": [
+								{
+									"key": "cardId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDkwMzY3NDMsImV4cCI6MTYwOTY0MTU0M30.R9SMja62vWN8vms2vbBw59cr3qBDqBWh--Bd4Tbbe2U",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3333"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJpYXQiOjE2MDg2NzIzNzIsImV4cCI6MTYwOTI3NzE3Mn0.dvGd9E7P3EI2jJpwd86HFsbmCBEqjaShBJ5LWcNIHcM"
+		}
+	]
+}
