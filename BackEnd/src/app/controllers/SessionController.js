@@ -129,5 +129,6 @@ class SessionController {
 
     return res.status(200).json({ ok: 'Password updated' });
   }
+}
 
 export default new SessionController();
